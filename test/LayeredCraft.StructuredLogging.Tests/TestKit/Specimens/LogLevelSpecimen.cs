@@ -2,7 +2,7 @@ using AutoFixture;
 using AutoFixture.Kernel;
 using Microsoft.Extensions.Logging;
 
-namespace LayeredCraft.StructuredLogging.Test.TestKit.Specimens;
+namespace LayeredCraft.StructuredLogging.Tests.TestKit.Specimens;
 
 public class LogLevelSpecimen : ISpecimenBuilder
 {

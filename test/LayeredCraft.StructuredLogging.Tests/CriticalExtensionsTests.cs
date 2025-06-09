@@ -1,46 +1,46 @@
 using AutoFixture.Xunit3;
-using LayeredCraft.StructuredLogging.Test.TestKit.Attributes;
 using LayeredCraft.StructuredLogging.Testing;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
-namespace LayeredCraft.StructuredLogging.Test;
+namespace LayeredCraft.StructuredLogging.Tests;
 
-public class ErrorExtensionsTests
+public class CriticalExtensionsTests
 {
-    #region Error Methods Without Exception
+    #region Critical Methods Without Exception
     
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithMessage_LogsAtErrorLevel(string message)
+    public void Critical_WithMessage_LogsAtCriticalLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(message);
+        testLogger.Critical(message);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error, message);
+        testLogger.AssertLogEntry(LogLevel.Critical, message);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Error_WithNullMessage_LogsAtErrorLevel()
+    public void Critical_WithNullMessage_LogsAtCriticalLevel()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(null);
+        testLogger.Critical(null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithOneProperty_LogsAtErrorLevel(
+    public void Critical_WithOneProperty_LogsAtCriticalLevel(
         string message,
         string propertyValue)
     {
@@ -48,31 +48,31 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(message, propertyValue);
+        testLogger.Critical(message, propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithOneProperty_NullValue_LogsAtErrorLevel(string message)
+    public void Critical_WithOneProperty_NullValue_LogsAtCriticalLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error<string?>(message, null);
+        testLogger.Critical<string?>(message, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithTwoProperties_LogsAtErrorLevel(
+    public void Critical_WithTwoProperties_LogsAtCriticalLevel(
         string message,
         string prop0,
         int prop1)
@@ -81,16 +81,16 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(message, prop0, prop1);
+        testLogger.Critical(message, prop0, prop1);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithThreeProperties_LogsAtErrorLevel(
+    public void Critical_WithThreeProperties_LogsAtCriticalLevel(
         string message,
         string prop0,
         int prop1, 
@@ -100,16 +100,16 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(message, prop0, prop1, prop2);
+        testLogger.Critical(message, prop0, prop1, prop2);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithFourProperties_LogsAtErrorLevel(
+    public void Critical_WithFourProperties_LogsAtCriticalLevel(
         string message,
         string prop0,
         int prop1,
@@ -120,16 +120,16 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(message, prop0, prop1, prop2, prop3);
+        testLogger.Critical(message, prop0, prop1, prop2, prop3);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithFiveProperties_LogsAtErrorLevel(
+    public void Critical_WithFiveProperties_LogsAtCriticalLevel(
         string message,
         string prop0,
         int prop1,
@@ -141,16 +141,16 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Critical(message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithSixProperties_LogsAtErrorLevel(
+    public void Critical_WithSixProperties_LogsAtCriticalLevel(
         string message,
         string prop0, 
         int prop1, 
@@ -163,20 +163,20 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Critical(message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     #endregion
 
-    #region Error Methods With Exception
+    #region Critical Methods With Exception
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithMessageAndException_LogsAtErrorLevelWithException(
+    public void Critical_WithMessageAndException_LogsAtCriticalLevelWithException(
         string message,
         Exception exception)
     {
@@ -184,12 +184,12 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, message);
+        testLogger.Critical(exception, message);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         entry.FormattedMessage.Should().Contain(message);
         testLogger.AssertLogCount(1);
@@ -197,25 +197,25 @@ public class ErrorExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithNullMessageAndException_LogsAtErrorLevel(Exception exception)
+    public void Critical_WithNullMessageAndException_LogsAtCriticalLevel(Exception exception)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, null);
+        testLogger.Critical(exception, null);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithExceptionAndOneProperty_LogsAtErrorLevel(
+    public void Critical_WithExceptionAndOneProperty_LogsAtCriticalLevel(
         Exception exception,
         string message,
         string propertyValue)
@@ -224,19 +224,19 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, message, propertyValue);
+        testLogger.Critical(exception, message, propertyValue);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithExceptionAndTwoProperties_LogsAtErrorLevel(
+    public void Critical_WithExceptionAndTwoProperties_LogsAtCriticalLevel(
         Exception exception,
         string message,
         string prop0,
@@ -246,19 +246,19 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, message, prop0, prop1);
+        testLogger.Critical(exception, message, prop0, prop1);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithExceptionAndThreeProperties_LogsAtErrorLevel(
+    public void Critical_WithExceptionAndThreeProperties_LogsAtCriticalLevel(
         Exception exception,
         string message,
         string prop0,
@@ -269,19 +269,19 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, message, prop0, prop1, prop2);
+        testLogger.Critical(exception, message, prop0, prop1, prop2);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithExceptionAndFourProperties_LogsAtErrorLevel(
+    public void Critical_WithExceptionAndFourProperties_LogsAtCriticalLevel(
         Exception exception,
         string message,
         string prop0,
@@ -293,19 +293,19 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, message, prop0, prop1, prop2, prop3);
+        testLogger.Critical(exception, message, prop0, prop1, prop2, prop3);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithExceptionAndFiveProperties_LogsAtErrorLevel(
+    public void Critical_WithExceptionAndFiveProperties_LogsAtCriticalLevel(
         Exception exception,
         string message,
         string prop0,
@@ -318,19 +318,19 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Critical(exception, message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithExceptionAndSixProperties_LogsAtErrorLevel(
+    public void Critical_WithExceptionAndSixProperties_LogsAtCriticalLevel(
         Exception exception,
         string message,
         string prop0,
@@ -344,12 +344,12 @@ public class ErrorExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Critical(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Error);
+        entry!.LogLevel.Should().Be(LogLevel.Critical);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
@@ -359,40 +359,56 @@ public class ErrorExtensionsTests
     #region Logger State Tests
 
     [Fact]
-    public void Error_WhenLoggerDisabled_DoesNotLog()
+    public void Critical_WhenLoggerDisabled_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Critical
+            MinimumLogLevel = LogLevel.None
         };
 
         // Act
-        testLogger.Error("test message");
+        testLogger.Critical("test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Error_WhenLoggerDisabledWithException_DoesNotLog()
+    public void Critical_WhenLoggerDisabledWithException_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Critical
+            MinimumLogLevel = LogLevel.None
         };
         var exception = new InvalidOperationException("test");
 
         // Act
-        testLogger.Error(exception, "test message");
+        testLogger.Critical(exception, "test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Error_WhenLoggerDisabledWithProperties_DoesNotLog()
+    public void Critical_WhenLoggerDisabledWithProperties_DoesNotLog()
+    {
+        // Arrange
+        var testLogger = new TestLogger
+        {
+            MinimumLogLevel = LogLevel.None
+        };
+
+        // Act
+        testLogger.Critical("test message", "prop1", 42, true);
+
+        // Assert
+        testLogger.AssertNoLogEntries();
+    }
+
+    [Fact]
+    public void Critical_WhenLoggerEnabled_Logs()
     {
         // Arrange
         var testLogger = new TestLogger
@@ -401,27 +417,11 @@ public class ErrorExtensionsTests
         };
 
         // Act
-        testLogger.Error("test message", "prop1", 42, true);
-
-        // Assert
-        testLogger.AssertNoLogEntries();
-    }
-
-    [Fact]
-    public void Error_WhenLoggerEnabled_Logs()
-    {
-        // Arrange
-        var testLogger = new TestLogger
-        {
-            MinimumLogLevel = LogLevel.Error
-        };
-
-        // Act
-        testLogger.Error("test message");
+        testLogger.Critical("test message");
 
         // Assert
         testLogger.AssertLogCount(1);
-        testLogger.AssertLogEntry(LogLevel.Error, "test message");
+        testLogger.AssertLogEntry(LogLevel.Critical, "test message");
     }
 
     #endregion
@@ -430,79 +430,79 @@ public class ErrorExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithComplexObjectProperty_LogsCorrectly(string message)
+    public void Critical_WithComplexObjectProperty_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
         var complexObject = new { Name = "Test", Value = 42, Date = DateTime.Now };
 
         // Act
-        testLogger.Error(message, complexObject);
+        testLogger.Critical(message, complexObject);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithMixedNullAndValueProperties_LogsCorrectly(string message)
+    public void Critical_WithMixedNullAndValueProperties_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error<string?, int?, bool?>(message, null, 42, null);
+        testLogger.Critical<string?, int?, bool?>(message, null, 42, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Error_MultipleCallsInSequence_LogsAll()
+    public void Critical_MultipleCallsInSequence_LogsAll()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error("First message");
-        testLogger.Error("Second message", "prop");
-        testLogger.Error(new Exception("test"), "Third message");
+        testLogger.Critical("First message");
+        testLogger.Critical("Second message", "prop");
+        testLogger.Critical(new Exception("test"), "Third message");
 
         // Assert
         testLogger.AssertLogCount(3);
         var entries = testLogger.LogEntries.ToList();
-        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Error));
+        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Critical));
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithEmptyString_LogsCorrectly(string propertyValue)
+    public void Critical_WithEmptyString_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error("", propertyValue);
+        testLogger.Critical("", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Error_WithWhitespace_LogsCorrectly(string propertyValue)
+    public void Critical_WithWhitespace_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Error("   ", propertyValue);
+        testLogger.Critical("   ", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Error);
+        testLogger.AssertLogEntry(LogLevel.Critical);
         testLogger.AssertLogCount(1);
     }
 

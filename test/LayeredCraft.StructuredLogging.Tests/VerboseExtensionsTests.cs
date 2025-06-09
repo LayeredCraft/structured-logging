@@ -1,46 +1,46 @@
 using AutoFixture.Xunit3;
-using LayeredCraft.StructuredLogging.Test.TestKit.Attributes;
 using LayeredCraft.StructuredLogging.Testing;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
-namespace LayeredCraft.StructuredLogging.Test;
+namespace LayeredCraft.StructuredLogging.Tests;
 
-public class InformationExtensionsTests
+public class VerboseExtensionsTests
 {
-    #region Information Methods Without Exception
+    #region Verbose Methods Without Exception
     
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithMessage_LogsAtInformationLevel(string message)
+    public void Verbose_WithMessage_LogsAtTraceLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(message);
+        testLogger.Verbose(message);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information, message);
+        testLogger.AssertLogEntry(LogLevel.Trace, message);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Information_WithNullMessage_LogsAtInformationLevel()
+    public void Verbose_WithNullMessage_LogsAtTraceLevel()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(null);
+        testLogger.Verbose(null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithOneProperty_LogsAtInformationLevel(
+    public void Verbose_WithOneProperty_LogsAtTraceLevel(
         string message,
         string propertyValue)
     {
@@ -48,31 +48,31 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(message, propertyValue);
+        testLogger.Verbose(message, propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithOneProperty_NullValue_LogsAtInformationLevel(string message)
+    public void Verbose_WithOneProperty_NullValue_LogsAtTraceLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information<string?>(message, null);
+        testLogger.Verbose<string?>(message, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithTwoProperties_LogsAtInformationLevel(
+    public void Verbose_WithTwoProperties_LogsAtTraceLevel(
         string message,
         string prop0,
         int prop1)
@@ -81,16 +81,16 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(message, prop0, prop1);
+        testLogger.Verbose(message, prop0, prop1);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithThreeProperties_LogsAtInformationLevel(
+    public void Verbose_WithThreeProperties_LogsAtTraceLevel(
         string message,
         string prop0,
         int prop1, 
@@ -100,16 +100,16 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(message, prop0, prop1, prop2);
+        testLogger.Verbose(message, prop0, prop1, prop2);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithFourProperties_LogsAtInformationLevel(
+    public void Verbose_WithFourProperties_LogsAtTraceLevel(
         string message,
         string prop0,
         int prop1,
@@ -120,16 +120,16 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(message, prop0, prop1, prop2, prop3);
+        testLogger.Verbose(message, prop0, prop1, prop2, prop3);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithFiveProperties_LogsAtInformationLevel(
+    public void Verbose_WithFiveProperties_LogsAtTraceLevel(
         string message,
         string prop0,
         int prop1,
@@ -141,16 +141,16 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Verbose(message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithSixProperties_LogsAtInformationLevel(
+    public void Verbose_WithSixProperties_LogsAtTraceLevel(
         string message,
         string prop0, 
         int prop1, 
@@ -163,20 +163,20 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Verbose(message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     #endregion
 
-    #region Information Methods With Exception
+    #region Verbose Methods With Exception
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithMessageAndException_LogsAtInformationLevelWithException(
+    public void Verbose_WithMessageAndException_LogsAtTraceLevelWithException(
         string message,
         Exception exception)
     {
@@ -184,12 +184,12 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, message);
+        testLogger.Verbose(exception, message);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         entry.FormattedMessage.Should().Contain(message);
         testLogger.AssertLogCount(1);
@@ -197,25 +197,25 @@ public class InformationExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithNullMessageAndException_LogsAtInformationLevel(Exception exception)
+    public void Verbose_WithNullMessageAndException_LogsAtTraceLevel(Exception exception)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, null);
+        testLogger.Verbose(exception, null);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithExceptionAndOneProperty_LogsAtInformationLevel(
+    public void Verbose_WithExceptionAndOneProperty_LogsAtTraceLevel(
         Exception exception,
         string message,
         string propertyValue)
@@ -224,19 +224,19 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, message, propertyValue);
+        testLogger.Verbose(exception, message, propertyValue);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithExceptionAndTwoProperties_LogsAtInformationLevel(
+    public void Verbose_WithExceptionAndTwoProperties_LogsAtTraceLevel(
         Exception exception,
         string message,
         string prop0,
@@ -246,19 +246,19 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, message, prop0, prop1);
+        testLogger.Verbose(exception, message, prop0, prop1);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithExceptionAndThreeProperties_LogsAtInformationLevel(
+    public void Verbose_WithExceptionAndThreeProperties_LogsAtTraceLevel(
         Exception exception,
         string message,
         string prop0,
@@ -269,19 +269,19 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, message, prop0, prop1, prop2);
+        testLogger.Verbose(exception, message, prop0, prop1, prop2);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithExceptionAndFourProperties_LogsAtInformationLevel(
+    public void Verbose_WithExceptionAndFourProperties_LogsAtTraceLevel(
         Exception exception,
         string message,
         string prop0,
@@ -293,19 +293,19 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, message, prop0, prop1, prop2, prop3);
+        testLogger.Verbose(exception, message, prop0, prop1, prop2, prop3);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithExceptionAndFiveProperties_LogsAtInformationLevel(
+    public void Verbose_WithExceptionAndFiveProperties_LogsAtTraceLevel(
         Exception exception,
         string message,
         string prop0,
@@ -318,19 +318,19 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Verbose(exception, message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithExceptionAndSixProperties_LogsAtInformationLevel(
+    public void Verbose_WithExceptionAndSixProperties_LogsAtTraceLevel(
         Exception exception,
         string message,
         string prop0,
@@ -344,12 +344,12 @@ public class InformationExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Verbose(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Information);
+        entry!.LogLevel.Should().Be(LogLevel.Trace);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
@@ -359,69 +359,69 @@ public class InformationExtensionsTests
     #region Logger State Tests
 
     [Fact]
-    public void Information_WhenLoggerDisabled_DoesNotLog()
+    public void Verbose_WhenLoggerDisabled_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Warning
+            MinimumLogLevel = LogLevel.Debug
         };
 
         // Act
-        testLogger.Information("test message");
+        testLogger.Verbose("test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Information_WhenLoggerDisabledWithException_DoesNotLog()
+    public void Verbose_WhenLoggerDisabledWithException_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Warning
+            MinimumLogLevel = LogLevel.Debug
         };
         var exception = new InvalidOperationException("test");
 
         // Act
-        testLogger.Information(exception, "test message");
+        testLogger.Verbose(exception, "test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Information_WhenLoggerDisabledWithProperties_DoesNotLog()
+    public void Verbose_WhenLoggerDisabledWithProperties_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Warning
+            MinimumLogLevel = LogLevel.Debug
         };
 
         // Act
-        testLogger.Information("test message", "prop1", 42, true);
+        testLogger.Verbose("test message", "prop1", 42, true);
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Information_WhenLoggerEnabled_Logs()
+    public void Verbose_WhenLoggerEnabled_Logs()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Information
+            MinimumLogLevel = LogLevel.Trace
         };
 
         // Act
-        testLogger.Information("test message");
+        testLogger.Verbose("test message");
 
         // Assert
         testLogger.AssertLogCount(1);
-        testLogger.AssertLogEntry(LogLevel.Information, "test message");
+        testLogger.AssertLogEntry(LogLevel.Trace, "test message");
     }
 
     #endregion
@@ -430,79 +430,79 @@ public class InformationExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithComplexObjectProperty_LogsCorrectly(string message)
+    public void Verbose_WithComplexObjectProperty_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
         var complexObject = new { Name = "Test", Value = 42, Date = DateTime.Now };
 
         // Act
-        testLogger.Information(message, complexObject);
+        testLogger.Verbose(message, complexObject);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithMixedNullAndValueProperties_LogsCorrectly(string message)
+    public void Verbose_WithMixedNullAndValueProperties_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information<string?, int?, bool?>(message, null, 42, null);
+        testLogger.Verbose<string?, int?, bool?>(message, null, 42, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Information_MultipleCallsInSequence_LogsAll()
+    public void Verbose_MultipleCallsInSequence_LogsAll()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information("First message");
-        testLogger.Information("Second message", "prop");
-        testLogger.Information(new Exception("test"), "Third message");
+        testLogger.Verbose("First message");
+        testLogger.Verbose("Second message", "prop");
+        testLogger.Verbose(new Exception("test"), "Third message");
 
         // Assert
         testLogger.AssertLogCount(3);
         var entries = testLogger.LogEntries.ToList();
-        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Information));
+        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Trace));
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithEmptyString_LogsCorrectly(string propertyValue)
+    public void Verbose_WithEmptyString_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information("", propertyValue);
+        testLogger.Verbose("", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Information_WithWhitespace_LogsCorrectly(string propertyValue)
+    public void Verbose_WithWhitespace_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Information("   ", propertyValue);
+        testLogger.Verbose("   ", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Information);
+        testLogger.AssertLogEntry(LogLevel.Trace);
         testLogger.AssertLogCount(1);
     }
 

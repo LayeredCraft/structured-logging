@@ -2,7 +2,7 @@ using AutoFixture;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace LayeredCraft.StructuredLogging.Test.TestKit.Customizations;
+namespace LayeredCraft.StructuredLogging.Tests.TestKit.Customizations;
 
 public class LoggerCustomization : ICustomization
 {

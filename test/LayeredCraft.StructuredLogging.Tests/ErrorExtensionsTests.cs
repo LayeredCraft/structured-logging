@@ -1,46 +1,46 @@
 using AutoFixture.Xunit3;
-using LayeredCraft.StructuredLogging.Test.TestKit.Attributes;
 using LayeredCraft.StructuredLogging.Testing;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
-namespace LayeredCraft.StructuredLogging.Test;
+namespace LayeredCraft.StructuredLogging.Tests;
 
-public class WarningExtensionsTests
+public class ErrorExtensionsTests
 {
-    #region Warning Methods Without Exception
+    #region Error Methods Without Exception
     
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithMessage_LogsAtWarningLevel(string message)
+    public void Error_WithMessage_LogsAtErrorLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(message);
+        testLogger.Error(message);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning, message);
+        testLogger.AssertLogEntry(LogLevel.Error, message);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Warning_WithNullMessage_LogsAtWarningLevel()
+    public void Error_WithNullMessage_LogsAtErrorLevel()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(null);
+        testLogger.Error(null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithOneProperty_LogsAtWarningLevel(
+    public void Error_WithOneProperty_LogsAtErrorLevel(
         string message,
         string propertyValue)
     {
@@ -48,31 +48,31 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(message, propertyValue);
+        testLogger.Error(message, propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithOneProperty_NullValue_LogsAtWarningLevel(string message)
+    public void Error_WithOneProperty_NullValue_LogsAtErrorLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning<string?>(message, null);
+        testLogger.Error<string?>(message, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithTwoProperties_LogsAtWarningLevel(
+    public void Error_WithTwoProperties_LogsAtErrorLevel(
         string message,
         string prop0,
         int prop1)
@@ -81,16 +81,16 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(message, prop0, prop1);
+        testLogger.Error(message, prop0, prop1);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithThreeProperties_LogsAtWarningLevel(
+    public void Error_WithThreeProperties_LogsAtErrorLevel(
         string message,
         string prop0,
         int prop1, 
@@ -100,16 +100,16 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(message, prop0, prop1, prop2);
+        testLogger.Error(message, prop0, prop1, prop2);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithFourProperties_LogsAtWarningLevel(
+    public void Error_WithFourProperties_LogsAtErrorLevel(
         string message,
         string prop0,
         int prop1,
@@ -120,16 +120,16 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(message, prop0, prop1, prop2, prop3);
+        testLogger.Error(message, prop0, prop1, prop2, prop3);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithFiveProperties_LogsAtWarningLevel(
+    public void Error_WithFiveProperties_LogsAtErrorLevel(
         string message,
         string prop0,
         int prop1,
@@ -141,16 +141,16 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Error(message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithSixProperties_LogsAtWarningLevel(
+    public void Error_WithSixProperties_LogsAtErrorLevel(
         string message,
         string prop0, 
         int prop1, 
@@ -163,20 +163,20 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Error(message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     #endregion
 
-    #region Warning Methods With Exception
+    #region Error Methods With Exception
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithMessageAndException_LogsAtWarningLevelWithException(
+    public void Error_WithMessageAndException_LogsAtErrorLevelWithException(
         string message,
         Exception exception)
     {
@@ -184,12 +184,12 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, message);
+        testLogger.Error(exception, message);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         entry.FormattedMessage.Should().Contain(message);
         testLogger.AssertLogCount(1);
@@ -197,25 +197,25 @@ public class WarningExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithNullMessageAndException_LogsAtWarningLevel(Exception exception)
+    public void Error_WithNullMessageAndException_LogsAtErrorLevel(Exception exception)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, null);
+        testLogger.Error(exception, null);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithExceptionAndOneProperty_LogsAtWarningLevel(
+    public void Error_WithExceptionAndOneProperty_LogsAtErrorLevel(
         Exception exception,
         string message,
         string propertyValue)
@@ -224,19 +224,19 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, message, propertyValue);
+        testLogger.Error(exception, message, propertyValue);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithExceptionAndTwoProperties_LogsAtWarningLevel(
+    public void Error_WithExceptionAndTwoProperties_LogsAtErrorLevel(
         Exception exception,
         string message,
         string prop0,
@@ -246,19 +246,19 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, message, prop0, prop1);
+        testLogger.Error(exception, message, prop0, prop1);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithExceptionAndThreeProperties_LogsAtWarningLevel(
+    public void Error_WithExceptionAndThreeProperties_LogsAtErrorLevel(
         Exception exception,
         string message,
         string prop0,
@@ -269,19 +269,19 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, message, prop0, prop1, prop2);
+        testLogger.Error(exception, message, prop0, prop1, prop2);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithExceptionAndFourProperties_LogsAtWarningLevel(
+    public void Error_WithExceptionAndFourProperties_LogsAtErrorLevel(
         Exception exception,
         string message,
         string prop0,
@@ -293,19 +293,19 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, message, prop0, prop1, prop2, prop3);
+        testLogger.Error(exception, message, prop0, prop1, prop2, prop3);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithExceptionAndFiveProperties_LogsAtWarningLevel(
+    public void Error_WithExceptionAndFiveProperties_LogsAtErrorLevel(
         Exception exception,
         string message,
         string prop0,
@@ -318,19 +318,19 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Error(exception, message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithExceptionAndSixProperties_LogsAtWarningLevel(
+    public void Error_WithExceptionAndSixProperties_LogsAtErrorLevel(
         Exception exception,
         string message,
         string prop0,
@@ -344,12 +344,12 @@ public class WarningExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Error(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Warning);
+        entry!.LogLevel.Should().Be(LogLevel.Error);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
@@ -359,40 +359,56 @@ public class WarningExtensionsTests
     #region Logger State Tests
 
     [Fact]
-    public void Warning_WhenLoggerDisabled_DoesNotLog()
+    public void Error_WhenLoggerDisabled_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Error
+            MinimumLogLevel = LogLevel.Critical
         };
 
         // Act
-        testLogger.Warning("test message");
+        testLogger.Error("test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Warning_WhenLoggerDisabledWithException_DoesNotLog()
+    public void Error_WhenLoggerDisabledWithException_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Error
+            MinimumLogLevel = LogLevel.Critical
         };
         var exception = new InvalidOperationException("test");
 
         // Act
-        testLogger.Warning(exception, "test message");
+        testLogger.Error(exception, "test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Warning_WhenLoggerDisabledWithProperties_DoesNotLog()
+    public void Error_WhenLoggerDisabledWithProperties_DoesNotLog()
+    {
+        // Arrange
+        var testLogger = new TestLogger
+        {
+            MinimumLogLevel = LogLevel.Critical
+        };
+
+        // Act
+        testLogger.Error("test message", "prop1", 42, true);
+
+        // Assert
+        testLogger.AssertNoLogEntries();
+    }
+
+    [Fact]
+    public void Error_WhenLoggerEnabled_Logs()
     {
         // Arrange
         var testLogger = new TestLogger
@@ -401,27 +417,11 @@ public class WarningExtensionsTests
         };
 
         // Act
-        testLogger.Warning("test message", "prop1", 42, true);
-
-        // Assert
-        testLogger.AssertNoLogEntries();
-    }
-
-    [Fact]
-    public void Warning_WhenLoggerEnabled_Logs()
-    {
-        // Arrange
-        var testLogger = new TestLogger
-        {
-            MinimumLogLevel = LogLevel.Warning
-        };
-
-        // Act
-        testLogger.Warning("test message");
+        testLogger.Error("test message");
 
         // Assert
         testLogger.AssertLogCount(1);
-        testLogger.AssertLogEntry(LogLevel.Warning, "test message");
+        testLogger.AssertLogEntry(LogLevel.Error, "test message");
     }
 
     #endregion
@@ -430,79 +430,79 @@ public class WarningExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithComplexObjectProperty_LogsCorrectly(string message)
+    public void Error_WithComplexObjectProperty_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
         var complexObject = new { Name = "Test", Value = 42, Date = DateTime.Now };
 
         // Act
-        testLogger.Warning(message, complexObject);
+        testLogger.Error(message, complexObject);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithMixedNullAndValueProperties_LogsCorrectly(string message)
+    public void Error_WithMixedNullAndValueProperties_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning<string?, int?, bool?>(message, null, 42, null);
+        testLogger.Error<string?, int?, bool?>(message, null, 42, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Warning_MultipleCallsInSequence_LogsAll()
+    public void Error_MultipleCallsInSequence_LogsAll()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning("First message");
-        testLogger.Warning("Second message", "prop");
-        testLogger.Warning(new Exception("test"), "Third message");
+        testLogger.Error("First message");
+        testLogger.Error("Second message", "prop");
+        testLogger.Error(new Exception("test"), "Third message");
 
         // Assert
         testLogger.AssertLogCount(3);
         var entries = testLogger.LogEntries.ToList();
-        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Warning));
+        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Error));
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithEmptyString_LogsCorrectly(string propertyValue)
+    public void Error_WithEmptyString_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning("", propertyValue);
+        testLogger.Error("", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Warning_WithWhitespace_LogsCorrectly(string propertyValue)
+    public void Error_WithWhitespace_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Warning("   ", propertyValue);
+        testLogger.Error("   ", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Warning);
+        testLogger.AssertLogEntry(LogLevel.Error);
         testLogger.AssertLogCount(1);
     }
 

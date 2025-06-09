@@ -1,10 +1,10 @@
 using AutoFixture.Xunit3;
 using AwesomeAssertions;
-using LayeredCraft.StructuredLogging.Test.TestKit.Attributes;
 using LayeredCraft.StructuredLogging.Testing;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
-namespace LayeredCraft.StructuredLogging.Test.Testing;
+namespace LayeredCraft.StructuredLogging.Tests.Testing;
 
 public class TestingExtensionsTests
 {

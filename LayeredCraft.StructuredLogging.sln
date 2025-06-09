@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1BF6691E-696
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6FFCCE67-D59F-4089-B3EE-822E5CDD0253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayeredCraft.StructuredLogging.Test", "test\LayeredCraft.StructuredLogging.Test\LayeredCraft.StructuredLogging.Test.csproj", "{378ED5C6-96C6-418F-860E-CF48A53E20FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayeredCraft.StructuredLogging.Tests", "test\LayeredCraft.StructuredLogging.Tests\LayeredCraft.StructuredLogging.Tests.csproj", "{378ED5C6-96C6-418F-860E-CF48A53E20FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayeredCraft.StructuredLogging", "src\LayeredCraft.StructuredLogging\LayeredCraft.StructuredLogging.csproj", "{236B0640-4113-4D3F-AF03-D3EBAE3ABA96}"
 EndProject
