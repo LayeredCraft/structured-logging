@@ -79,19 +79,19 @@ public static class PerformanceExtensions
     public static async Task<TResult> TimeAsync<TResult>(this ILogger logger, string operationName, Func<Task<TResult>> operation, LogLevel logLevel = LogLevel.Information)
     {
         var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, $"Starting operation: {operationName}");
+        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
         try
         {
             var result = await operation();
             stopwatch.Stop();
-            logger.LogMessage(logLevel, null, $"Completed operation: {operationName} in {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
             return result;
         }
         catch (Exception ex)
         {
             stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, $"Failed operation: {operationName} after {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }
@@ -116,18 +116,18 @@ public static class PerformanceExtensions
     public static async Task TimeAsync(this ILogger logger, string operationName, Func<Task> operation, LogLevel logLevel = LogLevel.Information)
     {
         var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, $"Starting operation: {operationName}");
+        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
         try
         {
             await operation();
             stopwatch.Stop();
-            logger.LogMessage(logLevel, null, $"Completed operation: {operationName} in {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex)
         {
             stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, $"Failed operation: {operationName} after {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }
@@ -153,19 +153,19 @@ public static class PerformanceExtensions
     public static TResult Time<TResult>(this ILogger logger, string operationName, Func<TResult> operation, LogLevel logLevel = LogLevel.Information)
     {
         var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, $"Starting operation: {operationName}");
+        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
         try
         {
             var result = operation();
             stopwatch.Stop();
-            logger.LogMessage(logLevel, null, $"Completed operation: {operationName} in {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
             return result;
         }
         catch (Exception ex)
         {
             stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, $"Failed operation: {operationName} after {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }
@@ -189,18 +189,18 @@ public static class PerformanceExtensions
     public static void Time(this ILogger logger, string operationName, Action operation, LogLevel logLevel = LogLevel.Information)
     {
         var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, $"Starting operation: {operationName}");
+        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
         try
         {
             operation();
             stopwatch.Stop();
-            logger.LogMessage(logLevel, null, $"Completed operation: {operationName} in {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
         }
         catch (Exception ex)
         {
             stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, $"Failed operation: {operationName} after {stopwatch.ElapsedMilliseconds}ms", stopwatch.ElapsedMilliseconds);
+            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
             throw;
         }
     }
@@ -260,7 +260,7 @@ internal sealed class TimedOperation : IDisposable
         _logLevel = logLevel;
         _stopwatch = Stopwatch.StartNew();
         
-        _logger.LogMessage(_logLevel, null, $"Starting operation: {_operationName}");
+        _logger.LogMessage(_logLevel, null, "Starting operation: {OperationName}", _operationName);
     }
 
     /// <summary>
@@ -271,7 +271,7 @@ internal sealed class TimedOperation : IDisposable
         if (_disposed) return;
         
         _stopwatch.Stop();
-        _logger.LogMessage(_logLevel, null, $"Completed operation: {_operationName} in {_stopwatch.ElapsedMilliseconds}ms", _stopwatch.ElapsedMilliseconds);
+        _logger.LogMessage(_logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", _operationName, _stopwatch.ElapsedMilliseconds);
         _disposed = true;
     }
 }
@@ -308,7 +308,7 @@ internal sealed class TimedOperation<T> : IDisposable
         _logLevel = logLevel;
         _stopwatch = Stopwatch.StartNew();
         
-        _logger.LogMessage(_logLevel, null, $"Starting operation: {_operationName}", _propertyValue);
+        _logger.LogMessage(_logLevel, null, "Starting operation: {OperationName}", _operationName, _propertyValue);
     }
 
     /// <summary>
@@ -319,7 +319,7 @@ internal sealed class TimedOperation<T> : IDisposable
         if (_disposed) return;
         
         _stopwatch.Stop();
-        _logger.LogMessage<T, long>(_logLevel, null, $"Completed operation: {_operationName} in {_stopwatch.ElapsedMilliseconds}ms", _propertyValue, _stopwatch.ElapsedMilliseconds);
+        _logger.LogMessage(_logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", _operationName, _propertyValue, _stopwatch.ElapsedMilliseconds);
         _disposed = true;
     }
 }
