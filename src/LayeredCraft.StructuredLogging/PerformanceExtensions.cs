@@ -34,31 +34,6 @@ public static class PerformanceExtensions
     }
 
     /// <summary>
-    /// Creates a disposable timer that logs the start and completion time of an operation with additional typed context property.
-    /// When disposed, it automatically logs the total elapsed time along with the context property.
-    /// </summary>
-    /// <typeparam name="T">The type of the context property value.</typeparam>
-    /// <param name="logger">The logger instance.</param>
-    /// <param name="operationName">The name of the operation being timed.</param>
-    /// <param name="propertyName">The name of the context property to include.</param>
-    /// <param name="propertyValue">The value of the context property to include.</param>
-    /// <param name="logLevel">The log level to use for timing messages. Defaults to Information.</param>
-    /// <returns>An IDisposable TimedOperation that logs completion time with context when disposed.</returns>
-    /// <example>
-    /// <code>
-    /// using (logger.TimeOperation("ProcessOrder", "OrderId", orderId))
-    /// {
-    ///     // Order processing code here
-    ///     // Logs with both timing and OrderId context
-    /// }
-    /// </code>
-    /// </example>
-    public static IDisposable TimeOperation<T>(this ILogger logger, string operationName, string propertyName, T propertyValue, LogLevel logLevel = LogLevel.Information)
-    {
-        return new TimedOperation<T>(logger, operationName, propertyName, propertyValue, logLevel);
-    }
-
-    /// <summary>
     /// Executes an asynchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
     /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
     /// </summary>
@@ -272,54 +247,6 @@ internal sealed class TimedOperation : IDisposable
         
         _stopwatch.Stop();
         _logger.LogMessage(_logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", _operationName, _stopwatch.ElapsedMilliseconds);
-        _disposed = true;
-    }
-}
-
-/// <summary>
-/// Internal generic class that implements a disposable timer for tracking operation duration with additional context.
-/// Automatically logs the start time with context when created and the elapsed time with context when disposed.
-/// </summary>
-/// <typeparam name="T">The type of the context property value.</typeparam>
-internal sealed class TimedOperation<T> : IDisposable
-{
-    private readonly ILogger _logger;
-    private readonly string _operationName;
-    private readonly string _propertyName;
-    private readonly T _propertyValue;
-    private readonly LogLevel _logLevel;
-    private readonly Stopwatch _stopwatch;
-    private bool _disposed;
-
-    /// <summary>
-    /// Initializes a new instance of the TimedOperation class with context and starts timing.
-    /// </summary>
-    /// <param name="logger">The logger instance to use for logging.</param>
-    /// <param name="operationName">The name of the operation being timed.</param>
-    /// <param name="propertyName">The name of the context property.</param>
-    /// <param name="propertyValue">The value of the context property.</param>
-    /// <param name="logLevel">The log level to use for timing messages.</param>
-    public TimedOperation(ILogger logger, string operationName, string propertyName, T propertyValue, LogLevel logLevel)
-    {
-        _logger = logger;
-        _operationName = operationName;
-        _propertyName = propertyName;
-        _propertyValue = propertyValue;
-        _logLevel = logLevel;
-        _stopwatch = Stopwatch.StartNew();
-        
-        _logger.LogMessage(_logLevel, null, "Starting operation: {OperationName}", _operationName, _propertyValue);
-    }
-
-    /// <summary>
-    /// Stops timing and logs the total elapsed time with context. Can be called multiple times safely.
-    /// </summary>
-    public void Dispose()
-    {
-        if (_disposed) return;
-        
-        _stopwatch.Stop();
-        _logger.LogMessage(_logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", _operationName, _propertyValue, _stopwatch.ElapsedMilliseconds);
         _disposed = true;
     }
 }
