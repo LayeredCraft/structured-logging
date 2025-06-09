@@ -1,9 +1,9 @@
 using AutoFixture.Xunit3;
-using LayeredCraft.StructuredLogging.Test.TestKit.Attributes;
 using LayeredCraft.StructuredLogging.Testing;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
-namespace LayeredCraft.StructuredLogging.Test;
+namespace LayeredCraft.StructuredLogging.Tests;
 
 public class PerformanceExtensionsTests
 {

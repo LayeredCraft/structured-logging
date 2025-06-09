@@ -1,6 +1,6 @@
 using AutoFixture;
 
-namespace LayeredCraft.StructuredLogging.Test.TestKit.Customizations;
+namespace LayeredCraft.StructuredLogging.Tests.TestKit.Customizations;
 
 public class ExceptionCustomization : ICustomization
 {

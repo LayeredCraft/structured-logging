@@ -1,46 +1,46 @@
 using AutoFixture.Xunit3;
-using LayeredCraft.StructuredLogging.Test.TestKit.Attributes;
 using LayeredCraft.StructuredLogging.Testing;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
-namespace LayeredCraft.StructuredLogging.Test;
+namespace LayeredCraft.StructuredLogging.Tests;
 
-public class VerboseExtensionsTests
+public class WarningExtensionsTests
 {
-    #region Verbose Methods Without Exception
+    #region Warning Methods Without Exception
     
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithMessage_LogsAtTraceLevel(string message)
+    public void Warning_WithMessage_LogsAtWarningLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(message);
+        testLogger.Warning(message);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace, message);
+        testLogger.AssertLogEntry(LogLevel.Warning, message);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Verbose_WithNullMessage_LogsAtTraceLevel()
+    public void Warning_WithNullMessage_LogsAtWarningLevel()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(null);
+        testLogger.Warning(null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithOneProperty_LogsAtTraceLevel(
+    public void Warning_WithOneProperty_LogsAtWarningLevel(
         string message,
         string propertyValue)
     {
@@ -48,31 +48,31 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(message, propertyValue);
+        testLogger.Warning(message, propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithOneProperty_NullValue_LogsAtTraceLevel(string message)
+    public void Warning_WithOneProperty_NullValue_LogsAtWarningLevel(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose<string?>(message, null);
+        testLogger.Warning<string?>(message, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithTwoProperties_LogsAtTraceLevel(
+    public void Warning_WithTwoProperties_LogsAtWarningLevel(
         string message,
         string prop0,
         int prop1)
@@ -81,16 +81,16 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(message, prop0, prop1);
+        testLogger.Warning(message, prop0, prop1);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithThreeProperties_LogsAtTraceLevel(
+    public void Warning_WithThreeProperties_LogsAtWarningLevel(
         string message,
         string prop0,
         int prop1, 
@@ -100,16 +100,16 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(message, prop0, prop1, prop2);
+        testLogger.Warning(message, prop0, prop1, prop2);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithFourProperties_LogsAtTraceLevel(
+    public void Warning_WithFourProperties_LogsAtWarningLevel(
         string message,
         string prop0,
         int prop1,
@@ -120,16 +120,16 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(message, prop0, prop1, prop2, prop3);
+        testLogger.Warning(message, prop0, prop1, prop2, prop3);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithFiveProperties_LogsAtTraceLevel(
+    public void Warning_WithFiveProperties_LogsAtWarningLevel(
         string message,
         string prop0,
         int prop1,
@@ -141,16 +141,16 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Warning(message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithSixProperties_LogsAtTraceLevel(
+    public void Warning_WithSixProperties_LogsAtWarningLevel(
         string message,
         string prop0, 
         int prop1, 
@@ -163,20 +163,20 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Warning(message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     #endregion
 
-    #region Verbose Methods With Exception
+    #region Warning Methods With Exception
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithMessageAndException_LogsAtTraceLevelWithException(
+    public void Warning_WithMessageAndException_LogsAtWarningLevelWithException(
         string message,
         Exception exception)
     {
@@ -184,12 +184,12 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, message);
+        testLogger.Warning(exception, message);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         entry.FormattedMessage.Should().Contain(message);
         testLogger.AssertLogCount(1);
@@ -197,25 +197,25 @@ public class VerboseExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithNullMessageAndException_LogsAtTraceLevel(Exception exception)
+    public void Warning_WithNullMessageAndException_LogsAtWarningLevel(Exception exception)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, null);
+        testLogger.Warning(exception, null);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithExceptionAndOneProperty_LogsAtTraceLevel(
+    public void Warning_WithExceptionAndOneProperty_LogsAtWarningLevel(
         Exception exception,
         string message,
         string propertyValue)
@@ -224,19 +224,19 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, message, propertyValue);
+        testLogger.Warning(exception, message, propertyValue);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithExceptionAndTwoProperties_LogsAtTraceLevel(
+    public void Warning_WithExceptionAndTwoProperties_LogsAtWarningLevel(
         Exception exception,
         string message,
         string prop0,
@@ -246,19 +246,19 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, message, prop0, prop1);
+        testLogger.Warning(exception, message, prop0, prop1);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithExceptionAndThreeProperties_LogsAtTraceLevel(
+    public void Warning_WithExceptionAndThreeProperties_LogsAtWarningLevel(
         Exception exception,
         string message,
         string prop0,
@@ -269,19 +269,19 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, message, prop0, prop1, prop2);
+        testLogger.Warning(exception, message, prop0, prop1, prop2);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithExceptionAndFourProperties_LogsAtTraceLevel(
+    public void Warning_WithExceptionAndFourProperties_LogsAtWarningLevel(
         Exception exception,
         string message,
         string prop0,
@@ -293,19 +293,19 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, message, prop0, prop1, prop2, prop3);
+        testLogger.Warning(exception, message, prop0, prop1, prop2, prop3);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithExceptionAndFiveProperties_LogsAtTraceLevel(
+    public void Warning_WithExceptionAndFiveProperties_LogsAtWarningLevel(
         Exception exception,
         string message,
         string prop0,
@@ -318,19 +318,19 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, message, prop0, prop1, prop2, prop3, prop4);
+        testLogger.Warning(exception, message, prop0, prop1, prop2, prop3, prop4);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithExceptionAndSixProperties_LogsAtTraceLevel(
+    public void Warning_WithExceptionAndSixProperties_LogsAtWarningLevel(
         Exception exception,
         string message,
         string prop0,
@@ -344,12 +344,12 @@ public class VerboseExtensionsTests
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
+        testLogger.Warning(exception, message, prop0, prop1, prop2, prop3, prop4, prop5);
 
         // Assert
         var entry = testLogger.GetLastLogEntry();
         entry.Should().NotBeNull();
-        entry!.LogLevel.Should().Be(LogLevel.Trace);
+        entry!.LogLevel.Should().Be(LogLevel.Warning);
         entry.Exception.Should().Be(exception);
         testLogger.AssertLogCount(1);
     }
@@ -359,69 +359,69 @@ public class VerboseExtensionsTests
     #region Logger State Tests
 
     [Fact]
-    public void Verbose_WhenLoggerDisabled_DoesNotLog()
+    public void Warning_WhenLoggerDisabled_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Debug
+            MinimumLogLevel = LogLevel.Error
         };
 
         // Act
-        testLogger.Verbose("test message");
+        testLogger.Warning("test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Verbose_WhenLoggerDisabledWithException_DoesNotLog()
+    public void Warning_WhenLoggerDisabledWithException_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Debug
+            MinimumLogLevel = LogLevel.Error
         };
         var exception = new InvalidOperationException("test");
 
         // Act
-        testLogger.Verbose(exception, "test message");
+        testLogger.Warning(exception, "test message");
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Verbose_WhenLoggerDisabledWithProperties_DoesNotLog()
+    public void Warning_WhenLoggerDisabledWithProperties_DoesNotLog()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Debug
+            MinimumLogLevel = LogLevel.Error
         };
 
         // Act
-        testLogger.Verbose("test message", "prop1", 42, true);
+        testLogger.Warning("test message", "prop1", 42, true);
 
         // Assert
         testLogger.AssertNoLogEntries();
     }
 
     [Fact]
-    public void Verbose_WhenLoggerEnabled_Logs()
+    public void Warning_WhenLoggerEnabled_Logs()
     {
         // Arrange
         var testLogger = new TestLogger
         {
-            MinimumLogLevel = LogLevel.Trace
+            MinimumLogLevel = LogLevel.Warning
         };
 
         // Act
-        testLogger.Verbose("test message");
+        testLogger.Warning("test message");
 
         // Assert
         testLogger.AssertLogCount(1);
-        testLogger.AssertLogEntry(LogLevel.Trace, "test message");
+        testLogger.AssertLogEntry(LogLevel.Warning, "test message");
     }
 
     #endregion
@@ -430,79 +430,79 @@ public class VerboseExtensionsTests
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithComplexObjectProperty_LogsCorrectly(string message)
+    public void Warning_WithComplexObjectProperty_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
         var complexObject = new { Name = "Test", Value = 42, Date = DateTime.Now };
 
         // Act
-        testLogger.Verbose(message, complexObject);
+        testLogger.Warning(message, complexObject);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithMixedNullAndValueProperties_LogsCorrectly(string message)
+    public void Warning_WithMixedNullAndValueProperties_LogsCorrectly(string message)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose<string?, int?, bool?>(message, null, 42, null);
+        testLogger.Warning<string?, int?, bool?>(message, null, 42, null);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Fact]
-    public void Verbose_MultipleCallsInSequence_LogsAll()
+    public void Warning_MultipleCallsInSequence_LogsAll()
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose("First message");
-        testLogger.Verbose("Second message", "prop");
-        testLogger.Verbose(new Exception("test"), "Third message");
+        testLogger.Warning("First message");
+        testLogger.Warning("Second message", "prop");
+        testLogger.Warning(new Exception("test"), "Third message");
 
         // Assert
         testLogger.AssertLogCount(3);
         var entries = testLogger.LogEntries.ToList();
-        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Trace));
+        entries.Should().AllSatisfy(entry => entry.LogLevel.Should().Be(LogLevel.Warning));
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithEmptyString_LogsCorrectly(string propertyValue)
+    public void Warning_WithEmptyString_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose("", propertyValue);
+        testLogger.Warning("", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 
     [Theory]
     [AutoNSubstituteData]
-    public void Verbose_WithWhitespace_LogsCorrectly(string propertyValue)
+    public void Warning_WithWhitespace_LogsCorrectly(string propertyValue)
     {
         // Arrange
         var testLogger = new TestLogger();
 
         // Act
-        testLogger.Verbose("   ", propertyValue);
+        testLogger.Warning("   ", propertyValue);
 
         // Assert
-        testLogger.AssertLogEntry(LogLevel.Trace);
+        testLogger.AssertLogEntry(LogLevel.Warning);
         testLogger.AssertLogCount(1);
     }
 

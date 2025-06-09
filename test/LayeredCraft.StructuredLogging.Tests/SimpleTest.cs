@@ -1,4 +1,4 @@
-namespace LayeredCraft.StructuredLogging.Test;
+namespace LayeredCraft.StructuredLogging.Tests;
 
 public class SimpleTest
 {

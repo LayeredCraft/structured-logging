@@ -1,10 +1,10 @@
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using AutoFixture.Xunit3;
-using LayeredCraft.StructuredLogging.Test.TestKit.Customizations;
-using LayeredCraft.StructuredLogging.Test.TestKit.Specimens;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Customizations;
+using LayeredCraft.StructuredLogging.Tests.TestKit.Specimens;
 
-namespace LayeredCraft.StructuredLogging.Test.TestKit.Attributes;
+namespace LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 
 public class AutoNSubstituteDataAttribute : AutoDataAttribute
 {
