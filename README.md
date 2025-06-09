@@ -38,7 +38,7 @@ logger.Information("Order processed for user {UserId} with total {Total:C}",
     userId, orderTotal);
 
 // Performance monitoring
-using (logger.BeginTimedScope("Database operation"))
+using (logger.TimeOperation("Database operation"))
 {
     // Your database code here
 } // Automatically logs execution time
@@ -94,7 +94,7 @@ using (logger.BeginScope("UserRegistration"))
 }
 
 // Structured scopes with properties
-using (logger.BeginScope("OrderProcessing", orderId))
+using (logger.BeginScope("OrderId", orderId))
 {
     logger.Information("Processing order");
     // Order processing logic
@@ -108,7 +108,7 @@ using (logger.BeginScopeWith(new { UserId = userId, SessionId = sessionId }))
 }
 
 // Timed scopes for performance monitoring
-using (logger.BeginTimedScope("DatabaseQuery"))
+using (logger.TimeOperation("DatabaseQuery"))
 {
     // Database operation
 } // Automatically logs execution time
@@ -144,22 +144,28 @@ Built-in performance tracking capabilities:
 
 ```csharp
 // Timed operations
-using (logger.BeginTimedOperation("DatabaseQuery"))
+using (logger.TimeOperation("DatabaseQuery"))
 {
     // Your database code
 } // Logs: "DatabaseQuery completed in 150ms"
 
-// Performance-sensitive logging with thresholds
-logger.TimedInformation("SlowQuery", TimeSpan.FromSeconds(1), () =>
+// Synchronous timed operations
+var result = logger.Time("CalculateSum", () =>
 {
-    // Query execution
-    return "Query completed";
-}); // Only logs if execution exceeds 1 second
+    return numbers.Sum();
+});
 
-// Manual timing
-using var timer = logger.StartTimer("CustomOperation");
-// Your code here
-timer.Stop(); // Logs execution time
+// Asynchronous timed operations
+await logger.TimeAsync("FetchUserData", async () =>
+{
+    await userService.GetUserAsync(userId);
+});
+
+// Method-level timing with caller info
+using (logger.TimeMethod())
+{
+    // Current method is automatically timed
+}
 ```
 
 ## Testing Support
@@ -277,7 +283,7 @@ public class OrderService
 
     public async Task ProcessOrderAsync(int orderId)
     {
-        using (_logger.BeginTimedScope("OrderProcessing"))
+        using (_logger.TimeOperation("OrderProcessing"))
         {
             _logger.Information("Starting order processing for {OrderId}", orderId);
             
