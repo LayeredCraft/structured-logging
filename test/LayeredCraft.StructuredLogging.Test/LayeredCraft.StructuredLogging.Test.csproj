@@ -33,4 +33,8 @@
     <ProjectReference Include="..\..\src\LayeredCraft.StructuredLogging\LayeredCraft.StructuredLogging.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include=".github\" />
+  </ItemGroup>
+
 </Project>
