@@ -619,4 +619,74 @@ public class ScopeExtensionsTests
     }
 
     #endregion
+
+    #region BeginScopeWith
+
+    [Theory]
+    [AutoNSubstituteData]
+    public void BeginScopeWith_WithAnonymousObject_CreatesScope(
+        string userId,
+        string sessionId,
+        int tenantId)
+    {
+        // Arrange
+        var testLogger = new TestLogger();
+        var scopeData = new { UserId = userId, SessionId = sessionId, TenantId = tenantId };
+
+        // Act
+        using var scope = testLogger.BeginScopeWith(scopeData);
+
+        // Assert
+        scope.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void BeginScopeWith_WithNull_CreatesScope()
+    {
+        // Arrange
+        var testLogger = new TestLogger();
+
+        // Act
+        using var scope = testLogger.BeginScopeWith(null!);
+
+        // Assert
+        scope.Should().NotBeNull();
+    }
+
+    [Theory]
+    [AutoNSubstituteData]
+    public void BeginScopeWith_WithStringObject_CreatesScope(string message)
+    {
+        // Arrange
+        var testLogger = new TestLogger();
+
+        // Act
+        using var scope = testLogger.BeginScopeWith(message);
+
+        // Assert
+        scope.Should().NotBeNull();
+    }
+
+    [Theory]
+    [AutoNSubstituteData]
+    public void BeginScopeWith_WithComplexObject_CreatesScope(string name, int age, bool isActive)
+    {
+        // Arrange
+        var testLogger = new TestLogger();
+        var complexObject = new 
+        { 
+            Name = name, 
+            Age = age, 
+            IsActive = isActive,
+            Metadata = new { Source = "Test", Version = 1.0 }
+        };
+
+        // Act
+        using var scope = testLogger.BeginScopeWith(complexObject);
+
+        // Assert
+        scope.Should().NotBeNull();
+    }
+
+    #endregion
 }

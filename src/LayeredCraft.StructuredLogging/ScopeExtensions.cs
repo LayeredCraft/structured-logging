@@ -1,4 +1,6 @@
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace LayeredCraft.StructuredLogging;
@@ -334,5 +336,25 @@ public static class ScopeExtensions
             scope["ParentId"] = parentId;
             
         return logger.BeginScope(scope);
+    }
+
+    /// <summary>
+    /// Creates a logging scope using an anonymous object, where all public properties of the object
+    /// will be included as structured data in all log entries within the scope.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="state">An anonymous object containing the properties to include in the scope.</param>
+    /// <returns>An IDisposable that should be disposed to end the scope.</returns>
+    /// <example>
+    /// <code>
+    /// using (logger.BeginScopeWith(new { UserId = userId, SessionId = sessionId, TenantId = tenantId }))
+    /// {
+    ///     logger.LogInformation("User session started"); // Will include UserId, SessionId, and TenantId
+    /// }
+    /// </code>
+    /// </example>
+    public static IDisposable BeginScopeWith(this ILogger logger, object state)
+    {
+        return logger.BeginScope(state);
     }
 }

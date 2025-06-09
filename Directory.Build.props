@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <VersionPrefix>1.0.0</VersionPrefix>
-        <!-- SPDX license identifier for Apache 2.0 -->
+        <!-- SPDX license identifier for MIT -->
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
         <!-- Other useful metadata -->
