@@ -43,11 +43,9 @@ using (logger.BeginTimedScope("Database operation"))
     // Your database code here
 } // Automatically logs execution time
 
-// Enriched logging
-logger.Enriched("ProcessingOrder")
-    .WithProperty("UserId", userId)
-    .WithProperty("OrderId", orderId)
-    .Information("Starting order processing");
+// Enriched logging with context
+logger.LogWithContext(LogLevel.Information, "Starting order processing", "UserId", userId);
+logger.InformationWithUserId(userId, "Order processing started");
 ```
 
 ## Core Extensions
@@ -121,20 +119,23 @@ using (logger.BeginTimedScope("DatabaseQuery"))
 Add contextual information to log entries:
 
 ```csharp
-// Single property enrichment
-logger.Enriched("CorrelationId", correlationId)
-    .Information("Request processed");
+// Context-specific logging methods
+logger.LogWithUserId(LogLevel.Information, userId, "User operation completed");
+logger.LogWithRequestId(LogLevel.Information, requestId, "Request processed");
+logger.LogWithCorrelationId(LogLevel.Information, correlationId, "Service call completed");
 
-// Multiple property enrichment
-logger.Enriched("ProcessingOrder")
-    .WithProperty("UserId", userId)
-    .WithProperty("OrderId", orderId)
-    .WithProperty("Amount", amount)
-    .Information("Order validation started");
+// Convenience methods for common log levels
+logger.InformationWithUserId(userId, "User profile updated");
+logger.WarningWithRequestId(requestId, "Request took longer than expected");
+logger.ErrorWithCorrelationId(correlationId, "Service call failed", exception);
 
-// Object-based enrichment
-logger.EnrichedWith(new { UserId = userId, TenantId = tenantId })
-    .Warning("Rate limit approaching");
+// Custom context enrichment
+logger.LogWithContext(LogLevel.Information, "Operation completed", "Duration", duration);
+logger.LogWithContext(LogLevel.Warning, "Rate limit approaching", "UserId", userId);
+
+// Automatic caller information
+logger.LogWithCaller(LogLevel.Debug, "Method execution completed");
+logger.InformationWithCaller("Operation finished successfully");
 ```
 
 ### Performance Monitoring
