@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TargetFrameworks>net8.0;net9.0;netstandard2.1</TargetFrameworks>
+        <LangVersion>default</LangVersion>
+        
+        <!-- Package metadata -->
+        <PackageId>LayeredCraft.StructuredLogging</PackageId>
+        <Title>LayeredCraft Structured Logging</Title>
+        <Description>Simplified, structured logging for modern .NET apps — overloads, conditionals, and performance built-in. High-performance extension methods for ILogger with structured parameters, scope management, enrichment capabilities, performance monitoring, and comprehensive testing support.</Description>
+        <Summary>High-performance structured logging extensions for .NET with built-in level checks, scope management, enrichment, and testing support.</Summary>
+        <PackageTags>logging;structured-logging;dotnet;microsoft-extensions-logging;performance;testing;scopes;enrichment;serilog;nlog</PackageTags>
+        <Category>Logging</Category>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReleaseNotes>Initial release of LayeredCraft.StructuredLogging with comprehensive logging extensions, scope management, enrichment capabilities, performance monitoring, and testing framework support.</PackageReleaseNotes>
+        <Copyright>Copyright © 2025 Nick Cipollina</Copyright>
+        
+        <!-- NuGet.org specific -->
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <IsPackable>true</IsPackable>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        
+        <!-- Documentation -->
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.5" />
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+    </ItemGroup>
+  
+    <ItemGroup>
+        <None Include="..\..\icon.png" Pack="true" PackagePath="" Visible="False" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="" Visible="False" />
+    </ItemGroup>
+</Project>
