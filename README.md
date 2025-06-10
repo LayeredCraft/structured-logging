@@ -1,6 +1,6 @@
 # LayeredCraft.StructuredLogging
 
-[![Build Status](https://github.com/LayeredCraft/structured-logging/workflows/build.yaml/badge.svg)](https://github.com/LayeredCraft/structured-logging/workflows/build.yaml)
+[![Build Status](https://github.com/LayeredCraft/structured-logging/actions/workflows/build.yaml/badge.svg)](https://github.com/LayeredCraft/structured-logging/actions/workflows/build.yaml)
 [![NuGet](https://img.shields.io/nuget/v/LayeredCraft.StructuredLogging.svg)](https://www.nuget.org/packages/LayeredCraft.StructuredLogging/)
 [![Downloads](https://img.shields.io/nuget/dt/LayeredCraft.StructuredLogging.svg)](https://www.nuget.org/packages/LayeredCraft.StructuredLogging/)
 
