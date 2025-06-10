@@ -10,9 +10,4 @@
         <Authors>Nick Cipollina</Authors>
         <PackageProjectUrl>https://github.com/LayeredCraft/structured-logging</PackageProjectUrl>
     </PropertyGroup>
-    <!-- Directory.Build.props -->
-    <PropertyGroup Condition="'$(MSBuildProjectName)' EndsWith '.Tests'">
-        <IsPackable>false</IsPackable>
-    </PropertyGroup>
-
 </Project>
