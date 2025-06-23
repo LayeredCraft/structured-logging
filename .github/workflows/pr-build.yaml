@@ -7,7 +7,7 @@ on:
 permissions: write-all
 jobs:
   build:
-    uses: LayeredCraft/devops-templates/.github/workflows/pr-build.yaml@v4.0
+    uses: LayeredCraft/devops-templates/.github/workflows/pr-build.yaml@v5.0
     with:
       solution: LayeredCraft.StructuredLogging.sln
       hasTests: true
