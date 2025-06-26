@@ -389,6 +389,19 @@ public class LogEntry
 }
 
 /// <summary>
+/// A generic test implementation of ILogger&lt;T&gt; that captures log entries in memory for testing purposes.
+/// This allows unit tests to verify logging behavior for strongly-typed loggers.
+/// </summary>
+/// <typeparam name="T">The type being logged for.</typeparam>
+public class TestLogger<T> : TestLogger, ILogger<T>
+{
+    /// <summary>
+    /// Initializes a new instance of the TestLogger&lt;T&gt; class.
+    /// </summary>
+    public TestLogger() : base() { }
+}
+
+/// <summary>
 /// Internal implementation of a logging scope for testing purposes.
 /// Tracks the state object but performs no actual scope management.
 /// </summary>
