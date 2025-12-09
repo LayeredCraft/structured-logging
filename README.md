@@ -13,8 +13,8 @@ Simplified, structured logging for modern .NET apps — overloads, conditionals,
 - 🔧 **Easy Integration** - Drop-in replacement for standard ILogger calls
 - 🎯 **Scope Management** - Comprehensive scope tracking with automatic disposal
 - ⚡ **Performance Monitoring** - Built-in timing and performance tracking
-- 🧪 **Testing Support** - Complete testing framework with assertions and mocking
-- 📦 **Multi-Target** - Supports .NET 8.0, .NET 9.0, and .NET Standard 2.1
+- 🧪 **Testing Support** - In-memory `TestLogger` with assertions and search helpers
+- 📦 **Multi-Target** - Supports .NET 8.0, .NET 9.0, .NET 10.0, .NET Standard 2.1, and .NET Standard 2.0
 
 ## Installation
 
