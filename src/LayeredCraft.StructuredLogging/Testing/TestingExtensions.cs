@@ -9,286 +9,275 @@ namespace LayeredCraft.StructuredLogging.Testing;
 /// </summary>
 public static class TestingExtensions
 {
-    /// <summary>
-    /// Gets the most recent log entry from the test logger, or null if no entries exist.
-    /// </summary>
     /// <param name="logger">The test logger instance.</param>
-    /// <returns>The last log entry, or null if no entries exist.</returns>
-    /// <example>
-    /// <code>
-    /// var lastEntry = testLogger.GetLastLogEntry();
-    /// Assert.NotNull(lastEntry);
-    /// Assert.Equal(LogLevel.Information, lastEntry.LogLevel);
-    /// </code>
-    /// </example>
-    public static LogEntry? GetLastLogEntry(this TestLogger logger)
+    extension(TestLogger logger)
     {
-        return logger.LogEntries.LastOrDefault();
-    }
+        /// <summary>
+        /// Gets the most recent log entry from the test logger, or null if no entries exist.
+        /// </summary>
+        /// <returns>The last log entry, or null if no entries exist.</returns>
+        /// <example>
+        /// <code>
+        /// var lastEntry = testLogger.GetLastLogEntry();
+        /// Assert.NotNull(lastEntry);
+        /// Assert.Equal(LogLevel.Information, lastEntry.LogLevel);
+        /// </code>
+        /// </example>
+        public LogEntry? GetLastLogEntry()
+        {
+            return logger.LogEntries.LastOrDefault();
+        }
 
-    /// <summary>
-    /// Gets a specific log entry by index, or null if the index is out of range.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="index">The zero-based index of the log entry to retrieve.</param>
-    /// <returns>The log entry at the specified index, or null if the index is out of range.</returns>
-    /// <example>
-    /// <code>
-    /// var firstEntry = testLogger.GetLogEntry(0);
-    /// var secondEntry = testLogger.GetLogEntry(1);
-    /// </code>
-    /// </example>
-    public static LogEntry? GetLogEntry(this TestLogger logger, int index)
-    {
-        return index >= 0 && index < logger.LogEntries.Count ? logger.LogEntries[index] : null;
-    }
+        /// <summary>
+        /// Gets a specific log entry by index, or null if the index is out of range.
+        /// </summary>
+        /// <param name="index">The zero-based index of the log entry to retrieve.</param>
+        /// <returns>The log entry at the specified index, or null if the index is out of range.</returns>
+        /// <example>
+        /// <code>
+        /// var firstEntry = testLogger.GetLogEntry(0);
+        /// var secondEntry = testLogger.GetLogEntry(1);
+        /// </code>
+        /// </example>
+        public LogEntry? GetLogEntry(int index)
+        {
+            return index >= 0 && index < logger.LogEntries.Count ? logger.LogEntries[index] : null;
+        }
 
-    /// <summary>
-    /// Gets all log entries that match the specified log level.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="logLevel">The log level to filter by.</param>
-    /// <returns>An enumerable of log entries with the specified log level.</returns>
-    /// <example>
-    /// <code>
-    /// var errorEntries = testLogger.GetLogEntries(LogLevel.Error);
-    /// var warningEntries = testLogger.GetLogEntries(LogLevel.Warning);
-    /// </code>
-    /// </example>
-    public static IEnumerable<LogEntry> GetLogEntries(this TestLogger logger, LogLevel logLevel)
-    {
-        return logger.LogEntries.Where(e => e.LogLevel == logLevel);
-    }
+        /// <summary>
+        /// Gets all log entries that match the specified log level.
+        /// </summary>
+        /// <param name="logLevel">The log level to filter by.</param>
+        /// <returns>An enumerable of log entries with the specified log level.</returns>
+        /// <example>
+        /// <code>
+        /// var errorEntries = testLogger.GetLogEntries(LogLevel.Error);
+        /// var warningEntries = testLogger.GetLogEntries(LogLevel.Warning);
+        /// </code>
+        /// </example>
+        public IEnumerable<LogEntry> GetLogEntries(LogLevel logLevel)
+        {
+            return logger.LogEntries.Where(e => e.LogLevel == logLevel);
+        }
 
-    /// <summary>
-    /// Gets all log entries whose formatted message contains the specified text.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="message">The text to search for in log messages.</param>
-    /// <returns>An enumerable of log entries containing the specified text.</returns>
-    /// <example>
-    /// <code>
-    /// var userEntries = testLogger.GetLogEntriesContaining("user");
-    /// var errorEntries = testLogger.GetLogEntriesContaining("failed");
-    /// </code>
-    /// </example>
-    public static IEnumerable<LogEntry> GetLogEntriesContaining(this TestLogger logger, string message)
-    {
-        return logger.LogEntries.Where(e => e.FormattedMessage?.Contains(message) == true);
-    }
+        /// <summary>
+        /// Gets all log entries whose formatted message contains the specified text.
+        /// </summary>
+        /// <param name="message">The text to search for in log messages.</param>
+        /// <returns>An enumerable of log entries containing the specified text.</returns>
+        /// <example>
+        /// <code>
+        /// var userEntries = testLogger.GetLogEntriesContaining("user");
+        /// var errorEntries = testLogger.GetLogEntriesContaining("failed");
+        /// </code>
+        /// </example>
+        public IEnumerable<LogEntry> GetLogEntriesContaining(string message)
+        {
+            return logger.LogEntries.Where(e => e.FormattedMessage?.Contains(message) == true);
+        }
 
-    /// <summary>
-    /// Gets all log entries that have an associated exception.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <returns>An enumerable of log entries that have exceptions.</returns>
-    /// <example>
-    /// <code>
-    /// var entriesWithExceptions = testLogger.GetLogEntriesWithException();
-    /// Assert.True(entriesWithExceptions.Any());
-    /// </code>
-    /// </example>
-    public static IEnumerable<LogEntry> GetLogEntriesWithException(this TestLogger logger)
-    {
-        return logger.LogEntries.Where(e => e.Exception != null);
-    }
+        /// <summary>
+        /// Gets all log entries that have an associated exception.
+        /// </summary>
+        /// <returns>An enumerable of log entries that have exceptions.</returns>
+        /// <example>
+        /// <code>
+        /// var entriesWithExceptions = testLogger.GetLogEntriesWithException();
+        /// Assert.True(entriesWithExceptions.Any());
+        /// </code>
+        /// </example>
+        public IEnumerable<LogEntry> GetLogEntriesWithException()
+        {
+            return logger.LogEntries.Where(e => e.Exception != null);
+        }
 
-    /// <summary>
-    /// Gets all log entries that have an exception of the specified type.
-    /// </summary>
-    /// <typeparam name="TException">The type of exception to filter by.</typeparam>
-    /// <param name="logger">The test logger instance.</param>
-    /// <returns>An enumerable of log entries that have exceptions of the specified type.</returns>
-    /// <example>
-    /// <code>
-    /// var argumentExceptions = testLogger.GetLogEntriesWithException&lt;ArgumentException&gt;();
-    /// var invalidOperationExceptions = testLogger.GetLogEntriesWithException&lt;InvalidOperationException&gt;();
-    /// </code>
-    /// </example>
-    public static IEnumerable<LogEntry> GetLogEntriesWithException<TException>(this TestLogger logger) where TException : Exception
-    {
-        return logger.LogEntries.Where(e => e.Exception is TException);
-    }
+        /// <summary>
+        /// Gets all log entries that have an exception of the specified type.
+        /// </summary>
+        /// <typeparam name="TException">The type of exception to filter by.</typeparam>
+        /// <returns>An enumerable of log entries that have exceptions of the specified type.</returns>
+        /// <example>
+        /// <code>
+        /// var argumentExceptions = testLogger.GetLogEntriesWithException&lt;ArgumentException&gt;();
+        /// var invalidOperationExceptions = testLogger.GetLogEntriesWithException&lt;InvalidOperationException&gt;();
+        /// </code>
+        /// </example>
+        public IEnumerable<LogEntry> GetLogEntriesWithException<TException>() where TException : Exception
+        {
+            return logger.LogEntries.Where(e => e.Exception is TException);
+        }
 
-    /// <summary>
-    /// Checks if the logger has any log entry with the specified log level and optionally containing the specified message.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="logLevel">The log level to search for.</param>
-    /// <param name="message">Optional message text to search for within log entries.</param>
-    /// <returns>True if a matching log entry is found, false otherwise.</returns>
-    /// <example>
-    /// <code>
-    /// Assert.True(testLogger.HasLogEntry(LogLevel.Error));
-    /// Assert.True(testLogger.HasLogEntry(LogLevel.Information, "completed"));
-    /// </code>
-    /// </example>
-    public static bool HasLogEntry(this TestLogger logger, LogLevel logLevel, string? message = null)
-    {
-        return logger.LogEntries.Any(e => e.LogLevel == logLevel && 
-                                         (message == null || e.FormattedMessage?.Contains(message) == true));
-    }
+        /// <summary>
+        /// Checks if the logger has any log entry with the specified log level and optionally containing the specified message.
+        /// </summary>
+        /// <param name="logLevel">The log level to search for.</param>
+        /// <param name="message">Optional message text to search for within log entries.</param>
+        /// <returns>True if a matching log entry is found, false otherwise.</returns>
+        /// <example>
+        /// <code>
+        /// Assert.True(testLogger.HasLogEntry(LogLevel.Error));
+        /// Assert.True(testLogger.HasLogEntry(LogLevel.Information, "completed"));
+        /// </code>
+        /// </example>
+        public bool HasLogEntry(LogLevel logLevel, string? message = null)
+        {
+            return logger.LogEntries.Any(e => e.LogLevel == logLevel && 
+                                              (message == null || e.FormattedMessage?.Contains(message) == true));
+        }
 
-    /// <summary>
-    /// Checks if the logger has any log entry with an exception of the specified type and optionally with the specified log level.
-    /// </summary>
-    /// <typeparam name="TException">The type of exception to search for.</typeparam>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="logLevel">Optional log level to filter by.</param>
-    /// <returns>True if a matching log entry with the specified exception type is found, false otherwise.</returns>
-    /// <example>
-    /// <code>
-    /// Assert.True(testLogger.HasLogEntryWithException&lt;ArgumentException&gt;());
-    /// Assert.True(testLogger.HasLogEntryWithException&lt;InvalidOperationException&gt;(LogLevel.Error));
-    /// </code>
-    /// </example>
-    public static bool HasLogEntryWithException<TException>(this TestLogger logger, LogLevel? logLevel = null) where TException : Exception
-    {
-        return logger.LogEntries.Any(e => e.Exception is TException && 
-                                         (logLevel == null || e.LogLevel == logLevel));
-    }
+        /// <summary>
+        /// Checks if the logger has any log entry with an exception of the specified type and optionally with the specified log level.
+        /// </summary>
+        /// <typeparam name="TException">The type of exception to search for.</typeparam>
+        /// <param name="logLevel">Optional log level to filter by.</param>
+        /// <returns>True if a matching log entry with the specified exception type is found, false otherwise.</returns>
+        /// <example>
+        /// <code>
+        /// Assert.True(testLogger.HasLogEntryWithException&lt;ArgumentException&gt;());
+        /// Assert.True(testLogger.HasLogEntryWithException&lt;InvalidOperationException&gt;(LogLevel.Error));
+        /// </code>
+        /// </example>
+        public bool HasLogEntryWithException<TException>(LogLevel? logLevel = null) where TException : Exception
+        {
+            return logger.LogEntries.Any(e => e.Exception is TException && 
+                                              (logLevel == null || e.LogLevel == logLevel));
+        }
 
-    /// <summary>
-    /// Asserts that the most recent log entry has the expected log level and optionally contains the expected message.
-    /// Throws an InvalidOperationException if the assertion fails.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="expectedLogLevel">The expected log level of the last entry.</param>
-    /// <param name="expectedMessage">Optional expected message text that should be contained in the log entry.</param>
-    /// <exception cref="InvalidOperationException">Thrown when no log entries exist or the assertion fails.</exception>
-    /// <example>
-    /// <code>
-    /// testLogger.AssertLogEntry(LogLevel.Information);
-    /// testLogger.AssertLogEntry(LogLevel.Error, "failed to process");
-    /// </code>
-    /// </example>
-    public static void AssertLogEntry(this TestLogger logger, LogLevel expectedLogLevel, string? expectedMessage = null)
-    {
-        var entry = logger.GetLastLogEntry();
-        if (entry == null)
-            throw new InvalidOperationException("No log entries found");
+        /// <summary>
+        /// Asserts that the most recent log entry has the expected log level and optionally contains the expected message.
+        /// Throws an InvalidOperationException if the assertion fails.
+        /// </summary>
+        /// <param name="expectedLogLevel">The expected log level of the last entry.</param>
+        /// <param name="expectedMessage">Optional expected message text that should be contained in the log entry.</param>
+        /// <exception cref="InvalidOperationException">Thrown when no log entries exist or the assertion fails.</exception>
+        /// <example>
+        /// <code>
+        /// testLogger.AssertLogEntry(LogLevel.Information);
+        /// testLogger.AssertLogEntry(LogLevel.Error, "failed to process");
+        /// </code>
+        /// </example>
+        public void AssertLogEntry(LogLevel expectedLogLevel, string? expectedMessage = null)
+        {
+            var entry = logger.GetLastLogEntry();
+            if (entry == null)
+                throw new InvalidOperationException("No log entries found");
 
-        if (entry.LogLevel != expectedLogLevel)
-            throw new InvalidOperationException($"Expected log level {expectedLogLevel}, but was {entry.LogLevel}");
+            if (entry.LogLevel != expectedLogLevel)
+                throw new InvalidOperationException($"Expected log level {expectedLogLevel}, but was {entry.LogLevel}");
 
-        if (expectedMessage != null && entry.FormattedMessage?.Contains(expectedMessage) != true)
-            throw new InvalidOperationException($"Expected message to contain '{expectedMessage}', but was '{entry.FormattedMessage}'");
-    }
+            if (expectedMessage != null && entry.FormattedMessage?.Contains(expectedMessage) != true)
+                throw new InvalidOperationException($"Expected message to contain '{expectedMessage}', but was '{entry.FormattedMessage}'");
+        }
 
-    /// <summary>
-    /// Asserts that the log entry at the specified index has the expected log level and optionally contains the expected message.
-    /// Throws an InvalidOperationException if the assertion fails.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="index">The zero-based index of the log entry to check.</param>
-    /// <param name="expectedLogLevel">The expected log level of the entry at the specified index.</param>
-    /// <param name="expectedMessage">Optional expected message text that should be contained in the log entry.</param>
-    /// <exception cref="InvalidOperationException">Thrown when no log entry exists at the index or the assertion fails.</exception>
-    /// <example>
-    /// <code>
-    /// testLogger.AssertLogEntryAt(0, LogLevel.Information);
-    /// testLogger.AssertLogEntryAt(1, LogLevel.Warning, "rate limit exceeded");
-    /// </code>
-    /// </example>
-    public static void AssertLogEntryAt(this TestLogger logger, int index, LogLevel expectedLogLevel, string? expectedMessage = null)
-    {
-        var entry = logger.GetLogEntry(index);
-        if (entry == null)
-            throw new InvalidOperationException($"No log entry found at index {index}");
+        /// <summary>
+        /// Asserts that the log entry at the specified index has the expected log level and optionally contains the expected message.
+        /// Throws an InvalidOperationException if the assertion fails.
+        /// </summary>
+        /// <param name="index">The zero-based index of the log entry to check.</param>
+        /// <param name="expectedLogLevel">The expected log level of the entry at the specified index.</param>
+        /// <param name="expectedMessage">Optional expected message text that should be contained in the log entry.</param>
+        /// <exception cref="InvalidOperationException">Thrown when no log entry exists at the index or the assertion fails.</exception>
+        /// <example>
+        /// <code>
+        /// testLogger.AssertLogEntryAt(0, LogLevel.Information);
+        /// testLogger.AssertLogEntryAt(1, LogLevel.Warning, "rate limit exceeded");
+        /// </code>
+        /// </example>
+        public void AssertLogEntryAt(int index, LogLevel expectedLogLevel, string? expectedMessage = null)
+        {
+            var entry = logger.GetLogEntry(index);
+            if (entry == null)
+                throw new InvalidOperationException($"No log entry found at index {index}");
 
-        if (entry.LogLevel != expectedLogLevel)
-            throw new InvalidOperationException($"Expected log level {expectedLogLevel} at index {index}, but was {entry.LogLevel}");
+            if (entry.LogLevel != expectedLogLevel)
+                throw new InvalidOperationException($"Expected log level {expectedLogLevel} at index {index}, but was {entry.LogLevel}");
 
-        if (expectedMessage != null && entry.FormattedMessage?.Contains(expectedMessage) != true)
-            throw new InvalidOperationException($"Expected message to contain '{expectedMessage}' at index {index}, but was '{entry.FormattedMessage}'");
-    }
+            if (expectedMessage != null && entry.FormattedMessage?.Contains(expectedMessage) != true)
+                throw new InvalidOperationException($"Expected message to contain '{expectedMessage}' at index {index}, but was '{entry.FormattedMessage}'");
+        }
 
-    /// <summary>
-    /// Asserts that the total number of log entries matches the expected count.
-    /// Throws an InvalidOperationException if the assertion fails.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="expectedCount">The expected total number of log entries.</param>
-    /// <exception cref="InvalidOperationException">Thrown when the actual count doesn't match the expected count.</exception>
-    /// <example>
-    /// <code>
-    /// testLogger.AssertLogCount(3); // Expects exactly 3 log entries
-    /// testLogger.AssertLogCount(0); // Expects no log entries
-    /// </code>
-    /// </example>
-    public static void AssertLogCount(this TestLogger logger, int expectedCount)
-    {
-        if (logger.LogEntries.Count != expectedCount)
-            throw new InvalidOperationException($"Expected {expectedCount} log entries, but found {logger.LogEntries.Count}");
-    }
+        /// <summary>
+        /// Asserts that the total number of log entries matches the expected count.
+        /// Throws an InvalidOperationException if the assertion fails.
+        /// </summary>
+        /// <param name="expectedCount">The expected total number of log entries.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the actual count doesn't match the expected count.</exception>
+        /// <example>
+        /// <code>
+        /// testLogger.AssertLogCount(3); // Expects exactly 3 log entries
+        /// testLogger.AssertLogCount(0); // Expects no log entries
+        /// </code>
+        /// </example>
+        public void AssertLogCount(int expectedCount)
+        {
+            if (logger.LogEntries.Count != expectedCount)
+                throw new InvalidOperationException($"Expected {expectedCount} log entries, but found {logger.LogEntries.Count}");
+        }
 
-    /// <summary>
-    /// Asserts that the number of log entries with the specified log level matches the expected count.
-    /// Throws an InvalidOperationException if the assertion fails.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="logLevel">The log level to filter by.</param>
-    /// <param name="expectedCount">The expected number of log entries with the specified log level.</param>
-    /// <exception cref="InvalidOperationException">Thrown when the actual count doesn't match the expected count.</exception>
-    /// <example>
-    /// <code>
-    /// testLogger.AssertLogCount(LogLevel.Error, 2); // Expects exactly 2 error entries
-    /// testLogger.AssertLogCount(LogLevel.Warning, 0); // Expects no warning entries
-    /// </code>
-    /// </example>
-    public static void AssertLogCount(this TestLogger logger, LogLevel logLevel, int expectedCount)
-    {
-        var count = logger.GetLogEntries(logLevel).Count();
-        if (count != expectedCount)
-            throw new InvalidOperationException($"Expected {expectedCount} log entries with level {logLevel}, but found {count}");
-    }
+        /// <summary>
+        /// Asserts that the number of log entries with the specified log level matches the expected count.
+        /// Throws an InvalidOperationException if the assertion fails.
+        /// </summary>
+        /// <param name="logLevel">The log level to filter by.</param>
+        /// <param name="expectedCount">The expected number of log entries with the specified log level.</param>
+        /// <exception cref="InvalidOperationException">Thrown when the actual count doesn't match the expected count.</exception>
+        /// <example>
+        /// <code>
+        /// testLogger.AssertLogCount(LogLevel.Error, 2); // Expects exactly 2 error entries
+        /// testLogger.AssertLogCount(LogLevel.Warning, 0); // Expects no warning entries
+        /// </code>
+        /// </example>
+        public void AssertLogCount(LogLevel logLevel, int expectedCount)
+        {
+            var count = logger.GetLogEntries(logLevel).Count();
+            if (count != expectedCount)
+                throw new InvalidOperationException($"Expected {expectedCount} log entries with level {logLevel}, but found {count}");
+        }
 
-    /// <summary>
-    /// Asserts that the logger has no log entries.
-    /// Throws an InvalidOperationException if any log entries exist.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <exception cref="InvalidOperationException">Thrown when log entries exist.</exception>
-    /// <example>
-    /// <code>
-    /// testLogger.AssertNoLogEntries(); // Expects the logger to be empty
-    /// </code>
-    /// </example>
-    public static void AssertNoLogEntries(this TestLogger logger)
-    {
-        logger.AssertLogCount(0);
-    }
+        /// <summary>
+        /// Asserts that the logger has no log entries.
+        /// Throws an InvalidOperationException if any log entries exist.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when log entries exist.</exception>
+        /// <example>
+        /// <code>
+        /// testLogger.AssertNoLogEntries(); // Expects the logger to be empty
+        /// </code>
+        /// </example>
+        public void AssertNoLogEntries()
+        {
+            logger.AssertLogCount(0);
+        }
 
-    /// <summary>
-    /// Asserts that the logger has no log entries with the specified log level.
-    /// Throws an InvalidOperationException if any log entries with the specified level exist.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <param name="logLevel">The log level to check for absence.</param>
-    /// <exception cref="InvalidOperationException">Thrown when log entries with the specified level exist.</exception>
-    /// <example>
-    /// <code>
-    /// testLogger.AssertNoLogEntries(LogLevel.Error); // Expects no error entries
-    /// </code>
-    /// </example>
-    public static void AssertNoLogEntries(this TestLogger logger, LogLevel logLevel)
-    {
-        logger.AssertLogCount(logLevel, 0);
-    }
+        /// <summary>
+        /// Asserts that the logger has no log entries with the specified log level.
+        /// Throws an InvalidOperationException if any log entries with the specified level exist.
+        /// </summary>
+        /// <param name="logLevel">The log level to check for absence.</param>
+        /// <exception cref="InvalidOperationException">Thrown when log entries with the specified level exist.</exception>
+        /// <example>
+        /// <code>
+        /// testLogger.AssertNoLogEntries(LogLevel.Error); // Expects no error entries
+        /// </code>
+        /// </example>
+        public void AssertNoLogEntries(LogLevel logLevel)
+        {
+            logger.AssertLogCount(logLevel, 0);
+        }
 
-    /// <summary>
-    /// Clears all log entries from the test logger, resetting it to an empty state.
-    /// </summary>
-    /// <param name="logger">The test logger instance.</param>
-    /// <example>
-    /// <code>
-    /// testLogger.Clear(); // Removes all log entries
-    /// testLogger.AssertNoLogEntries(); // Now passes
-    /// </code>
-    /// </example>
-    public static void Clear(this TestLogger logger)
-    {
-        logger.LogEntries.Clear();
+        /// <summary>
+        /// Clears all log entries from the test logger, resetting it to an empty state.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// testLogger.Clear(); // Removes all log entries
+        /// testLogger.AssertNoLogEntries(); // Now passes
+        /// </code>
+        /// </example>
+        public void Clear()
+        {
+            logger.LogEntries.Clear();
+        }
     }
 }
 
