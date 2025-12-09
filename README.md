@@ -107,6 +107,12 @@ using (logger.BeginScopeWith(new { UserId = userId, SessionId = sessionId }))
     // Session logic
 }
 
+// Caller-aware scopes (adds MemberName/FilePath/LineNumber)
+using (logger.BeginCallerScope())
+{
+    logger.Debug("Tracing caller details");
+}
+
 // Timed scopes for performance monitoring
 using (logger.TimeOperation("DatabaseQuery"))
 {
