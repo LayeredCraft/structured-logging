@@ -16,6 +16,8 @@
         For more information on Microsoft Testing Platform support in xUnit.net, please visit:
           https://xunit.net/docs/getting-started/v3/microsoft-testing-platform
         -->
+        <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+        <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
     </PropertyGroup>
 
     <ItemGroup>
@@ -33,7 +35,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="xunit.v3" Version="3.2.0" />
+        <PackageReference Include="xunit.v3" Version="3.2.1" />
     </ItemGroup>
 
     <ItemGroup>
