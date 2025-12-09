@@ -170,10 +170,10 @@ using (logger.TimeMethod())
 
 ## Testing Support
 
-Comprehensive testing framework for verifying logging behavior:
+`TestLogger` implements `ILogger` and captures entries in memory so you can assert against what was written. Extension methods help you inspect entries, check for the presence of messages, and perform simple assertions that throw `InvalidOperationException` when they fail.
 
 ```csharp
-[Test]
+[Fact]
 public void Should_Log_User_Registration()
 {
     // Arrange
@@ -184,17 +184,14 @@ public void Should_Log_User_Registration()
     userService.RegisterUser("john@example.com");
 
     // Assert
-    testLogger.Should().HaveLoggedInformation()
-        .WithMessage("User registered successfully")
-        .WithProperty("Email", "john@example.com");
-
-    // Alternative assertion syntax
-    testLogger.AssertLogEntry(LogLevel.Information, "User registered");
     testLogger.AssertLogCount(1);
-    testLogger.Should().HaveExactly(1).LogEntries();
+    testLogger.AssertLogEntry(LogLevel.Information, "User registered");
+
+    var entry = testLogger.GetLastLogEntry();
+    entry!.FormattedMessage.Should().Contain("john@example.com");
 }
 
-[Test]
+[Fact]
 public void Should_Handle_Registration_Errors()
 {
     // Arrange
@@ -202,12 +199,11 @@ public void Should_Handle_Registration_Errors()
     var userService = new UserService(testLogger);
 
     // Act & Assert
-    Assert.Throws<ValidationException>(() => 
+    Assert.Throws<ValidationException>(() =>
         userService.RegisterUser("invalid-email"));
 
-    testLogger.Should().HaveLoggedError()
-        .WithException<ValidationException>()
-        .WithMessage("Invalid email format");
+    testLogger.AssertLogEntry(LogLevel.Error, "Invalid email format");
+    testLogger.HasLogEntryWithException<ValidationException>().Should().BeTrue();
 }
 ```
 
@@ -216,20 +212,27 @@ public void Should_Handle_Registration_Errors()
 ```csharp
 // Get specific log entries
 var lastEntry = testLogger.GetLastLogEntry();
+var secondEntry = testLogger.GetLogEntry(1);
 var errorEntries = testLogger.GetLogEntries(LogLevel.Error);
 var entriesWithException = testLogger.GetLogEntriesWithException<ArgumentException>();
 
 // Search log entries
 var userEntries = testLogger.GetLogEntriesContaining("user");
 var hasError = testLogger.HasLogEntry(LogLevel.Error, "failed");
+var hasArgumentError = testLogger.HasLogEntryWithException<ArgumentException>(LogLevel.Error);
 
 // Assertions
+testLogger.AssertLogEntry(LogLevel.Warning, "threshold");
+testLogger.AssertLogEntryAt(0, LogLevel.Information, "started");
 testLogger.AssertLogCount(5);
-testLogger.AssertLogEntry(LogLevel.Information, "expected message");
-testLogger.AssertNoLogEntries(LogLevel.Error);
+testLogger.AssertLogCount(LogLevel.Error, 1);
+testLogger.AssertNoLogEntries();
 
 // Clear logs between tests
 testLogger.Clear();
+
+// Optional: only record entries at or above this level (defaults to Trace)
+testLogger.MinimumLogLevel = LogLevel.Information;
 ```
 
 ## Advanced Usage
