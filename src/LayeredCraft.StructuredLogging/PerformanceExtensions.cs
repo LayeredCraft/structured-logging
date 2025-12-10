@@ -11,202 +11,200 @@ namespace LayeredCraft.StructuredLogging;
 /// </summary>
 public static class PerformanceExtensions
 {
-    /// <summary>
-    /// Creates a disposable timer that logs the start and completion time of an operation.
-    /// When disposed, it automatically logs the total elapsed time with structured data.
-    /// </summary>
     /// <param name="logger">The logger instance.</param>
-    /// <param name="operationName">The name of the operation being timed.</param>
-    /// <param name="logLevel">The log level to use for timing messages. Defaults to Information.</param>
-    /// <returns>An IDisposable TimedOperation that logs completion time when disposed.</returns>
-    /// <example>
-    /// <code>
-    /// using (logger.TimeOperation("DatabaseQuery"))
-    /// {
-    ///     // Database operation code here
-    ///     // Automatically logs start and completion with elapsed time
-    /// }
-    /// </code>
-    /// </example>
-    public static IDisposable TimeOperation(this ILogger logger, string operationName, LogLevel logLevel = LogLevel.Information)
+    extension(ILogger logger)
     {
-        return new TimedOperation(logger, operationName, logLevel);
-    }
+        /// <summary>
+        /// Creates a disposable timer that logs the start and completion time of an operation.
+        /// When disposed, it automatically logs the total elapsed time with structured data.
+        /// </summary>
+        /// <param name="operationName">The name of the operation being timed.</param>
+        /// <param name="logLevel">The log level to use for timing messages. Defaults to Information.</param>
+        /// <returns>An IDisposable TimedOperation that logs completion time when disposed.</returns>
+        /// <example>
+        /// <code>
+        /// using (logger.TimeOperation("DatabaseQuery"))
+        /// {
+        ///     // Database operation code here
+        ///     // Automatically logs start and completion with elapsed time
+        /// }
+        /// </code>
+        /// </example>
+        public IDisposable TimeOperation(string operationName, LogLevel logLevel = LogLevel.Information)
+        {
+            return new TimedOperation(logger, operationName, logLevel);
+        }
 
-    /// <summary>
-    /// Executes an asynchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
-    /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
-    /// </summary>
-    /// <typeparam name="TResult">The return type of the asynchronous operation.</typeparam>
-    /// <param name="logger">The logger instance.</param>
-    /// <param name="operationName">The name of the operation being timed.</param>
-    /// <param name="operation">The asynchronous operation to execute and time.</param>
-    /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
-    /// <returns>The result of the operation.</returns>
-    /// <example>
-    /// <code>
-    /// var result = await logger.TimeAsync("FetchUserData", async () =>
-    /// {
-    ///     return await userService.GetUserAsync(userId);
-    /// });
-    /// </code>
-    /// </example>
-    public static async Task<TResult> TimeAsync<TResult>(this ILogger logger, string operationName, Func<Task<TResult>> operation, LogLevel logLevel = LogLevel.Information)
-    {
-        var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
+        /// <summary>
+        /// Executes an asynchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
+        /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the asynchronous operation.</typeparam>
+        /// <param name="operationName">The name of the operation being timed.</param>
+        /// <param name="operation">The asynchronous operation to execute and time.</param>
+        /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
+        /// <returns>The result of the operation.</returns>
+        /// <example>
+        /// <code>
+        /// var result = await logger.TimeAsync("FetchUserData", async () =>
+        /// {
+        ///     return await userService.GetUserAsync(userId);
+        /// });
+        /// </code>
+        /// </example>
+        public async Task<TResult> TimeAsync<TResult>(string operationName, Func<Task<TResult>> operation, LogLevel logLevel = LogLevel.Information)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
-        try
-        {
-            var result = await operation();
-            stopwatch.Stop();
-            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
-            return result;
+            try
+            {
+                var result = await operation();
+                stopwatch.Stop();
+                logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                stopwatch.Stop();
+                logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+                throw;
+            }
         }
-        catch (Exception ex)
-        {
-            stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
-            throw;
-        }
-    }
 
-    /// <summary>
-    /// Executes an asynchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
-    /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
-    /// </summary>
-    /// <param name="logger">The logger instance.</param>
-    /// <param name="operationName">The name of the operation being timed.</param>
-    /// <param name="operation">The asynchronous operation to execute and time.</param>
-    /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
-    /// <returns>A task representing the completion of the operation.</returns>
-    /// <example>
-    /// <code>
-    /// await logger.TimeAsync("SendNotification", async () =>
-    /// {
-    ///     await notificationService.SendAsync(notification);
-    /// });
-    /// </code>
-    /// </example>
-    public static async Task TimeAsync(this ILogger logger, string operationName, Func<Task> operation, LogLevel logLevel = LogLevel.Information)
-    {
-        var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
+        /// <summary>
+        /// Executes an asynchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
+        /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
+        /// </summary>
+        /// <param name="operationName">The name of the operation being timed.</param>
+        /// <param name="operation">The asynchronous operation to execute and time.</param>
+        /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
+        /// <returns>A task representing the completion of the operation.</returns>
+        /// <example>
+        /// <code>
+        /// await logger.TimeAsync("SendNotification", async () =>
+        /// {
+        ///     await notificationService.SendAsync(notification);
+        /// });
+        /// </code>
+        /// </example>
+        public async Task TimeAsync(string operationName, Func<Task> operation, LogLevel logLevel = LogLevel.Information)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
-        try
-        {
-            await operation();
-            stopwatch.Stop();
-            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+            try
+            {
+                await operation();
+                stopwatch.Stop();
+                logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+            }
+            catch (Exception ex)
+            {
+                stopwatch.Stop();
+                logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+                throw;
+            }
         }
-        catch (Exception ex)
-        {
-            stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
-            throw;
-        }
-    }
 
-    /// <summary>
-    /// Executes a synchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
-    /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
-    /// </summary>
-    /// <typeparam name="TResult">The return type of the operation.</typeparam>
-    /// <param name="logger">The logger instance.</param>
-    /// <param name="operationName">The name of the operation being timed.</param>
-    /// <param name="operation">The synchronous operation to execute and time.</param>
-    /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
-    /// <returns>The result of the operation.</returns>
-    /// <example>
-    /// <code>
-    /// var result = logger.Time("CalculateSum", () =>
-    /// {
-    ///     return numbers.Sum();
-    /// });
-    /// </code>
-    /// </example>
-    public static TResult Time<TResult>(this ILogger logger, string operationName, Func<TResult> operation, LogLevel logLevel = LogLevel.Information)
-    {
-        var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
+        /// <summary>
+        /// Executes a synchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
+        /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
+        /// </summary>
+        /// <typeparam name="TResult">The return type of the operation.</typeparam>
+        /// <param name="operationName">The name of the operation being timed.</param>
+        /// <param name="operation">The synchronous operation to execute and time.</param>
+        /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
+        /// <returns>The result of the operation.</returns>
+        /// <example>
+        /// <code>
+        /// var result = logger.Time("CalculateSum", () =>
+        /// {
+        ///     return numbers.Sum();
+        /// });
+        /// </code>
+        /// </example>
+        public TResult Time<TResult>(string operationName, Func<TResult> operation, LogLevel logLevel = LogLevel.Information)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
-        try
-        {
-            var result = operation();
-            stopwatch.Stop();
-            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
-            return result;
+            try
+            {
+                var result = operation();
+                stopwatch.Stop();
+                logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                stopwatch.Stop();
+                logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+                throw;
+            }
         }
-        catch (Exception ex)
-        {
-            stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
-            throw;
-        }
-    }
 
-    /// <summary>
-    /// Executes a synchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
-    /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
-    /// </summary>
-    /// <param name="logger">The logger instance.</param>
-    /// <param name="operationName">The name of the operation being timed.</param>
-    /// <param name="operation">The synchronous operation to execute and time.</param>
-    /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
-    /// <example>
-    /// <code>
-    /// logger.Time("UpdateCache", () =>
-    /// {
-    ///     cache.Update(data);
-    /// });
-    /// </code>
-    /// </example>
-    public static void Time(this ILogger logger, string operationName, Action operation, LogLevel logLevel = LogLevel.Information)
-    {
-        var stopwatch = Stopwatch.StartNew();
-        logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
+        /// <summary>
+        /// Executes a synchronous operation with automatic timing and logging. Logs start, completion, and elapsed time.
+        /// If the operation throws an exception, logs the failure with timing information and re-throws the exception.
+        /// </summary>
+        /// <param name="operationName">The name of the operation being timed.</param>
+        /// <param name="operation">The synchronous operation to execute and time.</param>
+        /// <param name="logLevel">The log level to use for success timing messages. Defaults to Information. Errors are always logged at Error level.</param>
+        /// <example>
+        /// <code>
+        /// logger.Time("UpdateCache", () =>
+        /// {
+        ///     cache.Update(data);
+        /// });
+        /// </code>
+        /// </example>
+        public void Time(string operationName, Action operation, LogLevel logLevel = LogLevel.Information)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            logger.LogMessage(logLevel, null, "Starting operation: {OperationName}", operationName);
         
-        try
-        {
-            operation();
-            stopwatch.Stop();
-            logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+            try
+            {
+                operation();
+                stopwatch.Stop();
+                logger.LogMessage(logLevel, null, "Completed operation: {OperationName} in {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+            }
+            catch (Exception ex)
+            {
+                stopwatch.Stop();
+                logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
+                throw;
+            }
         }
-        catch (Exception ex)
-        {
-            stopwatch.Stop();
-            logger.LogMessage(LogLevel.Error, ex, "Failed operation: {OperationName} after {ElapsedMilliseconds}ms", operationName, stopwatch.ElapsedMilliseconds);
-            throw;
-        }
-    }
 
-    /// <summary>
-    /// Creates a disposable timer for the current method using automatic caller information.
-    /// This is useful for timing method execution without manually specifying the method name.
-    /// </summary>
-    /// <param name="logger">The logger instance.</param>
-    /// <param name="logLevel">The log level to use for timing messages. Defaults to Debug.</param>
-    /// <param name="memberName">The name of the calling member. This is automatically populated by the compiler.</param>
-    /// <param name="filePath">The path of the source file containing the caller. This is automatically populated by the compiler.</param>
-    /// <returns>An IDisposable TimedOperation that logs method completion time when disposed.</returns>
-    /// <example>
-    /// <code>
-    /// public void ProcessData()
-    /// {
-    ///     using (logger.TimeMethod())
-    ///     {
-    ///         // Method implementation
-    ///         // Automatically logs "ClassName.ProcessData" timing
-    ///     }
-    /// }
-    /// </code>
-    /// </example>
-    public static IDisposable TimeMethod(this ILogger logger, LogLevel logLevel = LogLevel.Debug,
-        [CallerMemberName] string memberName = "",
-        [CallerFilePath] string filePath = "")
-    {
-        var fileName = Path.GetFileNameWithoutExtension(filePath);
-        return new TimedOperation(logger, $"{fileName}.{memberName}", logLevel);
+        /// <summary>
+        /// Creates a disposable timer for the current method using automatic caller information.
+        /// This is useful for timing method execution without manually specifying the method name.
+        /// </summary>
+        /// <param name="logLevel">The log level to use for timing messages. Defaults to Debug.</param>
+        /// <param name="memberName">The name of the calling member. This is automatically populated by the compiler.</param>
+        /// <param name="filePath">The path of the source file containing the caller. This is automatically populated by the compiler.</param>
+        /// <returns>An IDisposable TimedOperation that logs method completion time when disposed.</returns>
+        /// <example>
+        /// <code>
+        /// public void ProcessData()
+        /// {
+        ///     using (logger.TimeMethod())
+        ///     {
+        ///         // Method implementation
+        ///         // Automatically logs "ClassName.ProcessData" timing
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
+        public IDisposable TimeMethod(LogLevel logLevel = LogLevel.Debug,
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string filePath = "")
+        {
+            var fileName = Path.GetFileNameWithoutExtension(filePath);
+            return new TimedOperation(logger, $"{fileName}.{memberName}", logLevel);
+        }
     }
 }
 
