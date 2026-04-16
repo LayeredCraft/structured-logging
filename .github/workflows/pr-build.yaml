@@ -7,14 +7,14 @@ on:
 permissions: write-all
 jobs:
   build:
-    uses: LayeredCraft/devops-templates/.github/workflows/pr-build.yaml@v6.2
+    uses: LayeredCraft/devops-templates/.github/workflows/pr-build.yaml@v7.6
     with:
-      solution: LayeredCraft.StructuredLogging.sln
-      useMtpRunner: true
+      solution: LayeredCraft.StructuredLogging.slnx
       hasTests: true
       dotnetVersion: |
         8.0.x
         9.0.x
         10.0.x
+        11.0.x
       runCdk: false
     secrets: inherit
