@@ -3,7 +3,7 @@
   "packages": {
     "LayeredCraft.StructuredLogging": {
       "strategy": "single",
-      "defaultVersionPrefix": "0.0.1"
+      "defaultVersionPrefix": "1.2.0"
     }
   }
 }
