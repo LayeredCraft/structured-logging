@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LayeredCraft/devops-templates/main/eng/package-versioning.schema.json",
+  "packages": {
+    "LayeredCraft.StructuredLogging": {
+      "strategy": "single",
+      "defaultVersionPrefix": "1.1.8"
+    }
+  }
+}

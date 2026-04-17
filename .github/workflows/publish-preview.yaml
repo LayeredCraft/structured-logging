@@ -1,0 +1,23 @@
+name: Publish Preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+  publish:
+    uses: LayeredCraft/devops-templates/.github/workflows/publish-preview.yml@feat/nuget-versioning
+    with:
+      solution: LayeredCraft.StructuredLogging.slnx
+      packageId: LayeredCraft.StructuredLogging
+      hasTests: true
+      dotnetVersion: |
+        8.0.x
+        9.0.x
+        10.0.x
+        11.0.x
+    secrets: inherit
