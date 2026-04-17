@@ -9,7 +9,7 @@ permissions: write-all
 
 jobs:
   publish:
-    uses: LayeredCraft/devops-templates/.github/workflows/publish-release.yml@feat/nuget-versioning
+    uses: LayeredCraft/devops-templates/.github/workflows/publish-release.yml@main
     with:
       solution: LayeredCraft.StructuredLogging.slnx
       packageId: LayeredCraft.StructuredLogging
