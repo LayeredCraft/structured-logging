@@ -1,9 +1,8 @@
 name: Publish Release
 
 on:
-  push:
-    tags:
-      - v*
+  release:
+    types: [published]
 
 permissions: write-all
 
@@ -12,11 +11,10 @@ jobs:
     uses: LayeredCraft/devops-templates/.github/workflows/publish-release.yml@main
     with:
       solution: LayeredCraft.StructuredLogging.slnx
-      packageId: LayeredCraft.StructuredLogging
-      hasTests: true
       dotnetVersion: |
         8.0.x
         9.0.x
         10.0.x
         11.0.x
+      hasTests: true
     secrets: inherit

@@ -4,13 +4,14 @@
     <File Path=".github/workflows/pr-build.yaml" />
     <File Path=".github/workflows/publish-preview.yaml" />
     <File Path=".github/workflows/publish-release.yaml" />
+    <File Path=".github/workflows/pr-title-check.yaml" />
+    <File Path=".github/workflows/release-drafter.yaml" />
     <File Path=".gitignore" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
-    <File Path="eng/package-versioning.json" />
-    <File Path="global.json" />
+<File Path="global.json" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
