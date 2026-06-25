@@ -4,8 +4,7 @@ on:
   pull_request:
     branches:
       - main
-permissions:
-  contents: read
+permissions: write-all
 jobs:
   build:
     uses: LayeredCraft/devops-templates/.github/workflows/pr-build.yaml@v10.0
