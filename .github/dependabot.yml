@@ -35,13 +35,6 @@ updates:
         patterns:
           - "*"
 
-  - package-ecosystem: "dotnet-sdk"
-    directory: "/"
-    patterns:
-      - "*"
-    multi-ecosystem-group: "infrastructure"
-    cooldown:
-      default-days: 7
 
   - package-ecosystem: "github-actions"
     directory: "/"
