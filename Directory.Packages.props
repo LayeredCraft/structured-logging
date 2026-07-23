@@ -6,7 +6,7 @@
        Pin each per-TargetFramework with bounded ranges so Dependabot can raise
        lower bounds without crossing into the next major/preview line. -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0' or '$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.18" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="[8.0.3, 9.0.0)" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="[9.0.17, 10.0.0)" />
@@ -28,7 +28,7 @@
     <PackageVersion Include="AutoFixture" Version="4.18.1" />
     <PackageVersion Include="AutoFixture.AutoNSubstitute" Version="4.18.1" />
     <PackageVersion Include="AutoFixture.Xunit3" Version="4.19.0" />
-    <PackageVersion Include="AwesomeAssertions" Version="9.4.0" />
+    <PackageVersion Include="AwesomeAssertions" Version="9.5.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5">
