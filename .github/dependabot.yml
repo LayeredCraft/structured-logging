@@ -22,6 +22,10 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    ignore:
+      - dependency-name: Microsoft.Extensions.Logging.Abstractions
+        update-types:
+          - version-update:semver-major
     groups:
       dotnet-minor-patch:
         update-types:
