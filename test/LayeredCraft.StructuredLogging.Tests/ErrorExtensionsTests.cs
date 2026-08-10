@@ -1,6 +1,5 @@
-using AutoFixture.Xunit3;
+using Compono.XunitV3;
 using LayeredCraft.StructuredLogging.Testing;
-using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace LayeredCraft.StructuredLogging.Tests;
@@ -10,7 +9,7 @@ public class ErrorExtensionsTests
     #region Error Methods Without Exception
     
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithMessage_LogsAtErrorLevel(string message)
     {
         // Arrange
@@ -39,7 +38,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithOneProperty_LogsAtErrorLevel(
         string message,
         string propertyValue)
@@ -56,7 +55,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithOneProperty_NullValue_LogsAtErrorLevel(string message)
     {
         // Arrange
@@ -71,7 +70,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithTwoProperties_LogsAtErrorLevel(
         string message,
         string prop0,
@@ -89,7 +88,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithThreeProperties_LogsAtErrorLevel(
         string message,
         string prop0,
@@ -108,7 +107,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithFourProperties_LogsAtErrorLevel(
         string message,
         string prop0,
@@ -128,7 +127,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithFiveProperties_LogsAtErrorLevel(
         string message,
         string prop0,
@@ -149,7 +148,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithSixProperties_LogsAtErrorLevel(
         string message,
         string prop0, 
@@ -175,12 +174,13 @@ public class ErrorExtensionsTests
     #region Error Methods With Exception
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithMessageAndException_LogsAtErrorLevelWithException(
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -196,10 +196,11 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
-    public void Error_WithNullMessageAndException_LogsAtErrorLevel(Exception exception)
+    [Compose]
+    public void Error_WithNullMessageAndException_LogsAtErrorLevel(string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -214,13 +215,14 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithExceptionAndOneProperty_LogsAtErrorLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string propertyValue)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -235,14 +237,15 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithExceptionAndTwoProperties_LogsAtErrorLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -257,15 +260,16 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithExceptionAndThreeProperties_LogsAtErrorLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
         bool prop2)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -280,9 +284,9 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithExceptionAndFourProperties_LogsAtErrorLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -290,6 +294,7 @@ public class ErrorExtensionsTests
         double prop3)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -304,9 +309,9 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithExceptionAndFiveProperties_LogsAtErrorLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -315,6 +320,7 @@ public class ErrorExtensionsTests
         long prop4)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -329,9 +335,9 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithExceptionAndSixProperties_LogsAtErrorLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -341,6 +347,7 @@ public class ErrorExtensionsTests
         decimal prop5)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -429,7 +436,7 @@ public class ErrorExtensionsTests
     #region Edge Cases
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithComplexObjectProperty_LogsCorrectly(string message)
     {
         // Arrange
@@ -445,7 +452,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithMixedNullAndValueProperties_LogsCorrectly(string message)
     {
         // Arrange
@@ -477,7 +484,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithEmptyString_LogsCorrectly(string propertyValue)
     {
         // Arrange
@@ -492,7 +499,7 @@ public class ErrorExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Error_WithWhitespace_LogsCorrectly(string propertyValue)
     {
         // Arrange

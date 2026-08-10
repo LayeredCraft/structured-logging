@@ -1,6 +1,5 @@
-using AutoFixture.Xunit3;
+using Compono.XunitV3;
 using LayeredCraft.StructuredLogging.Testing;
-using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace LayeredCraft.StructuredLogging.Tests;
@@ -10,7 +9,7 @@ public class ScopeExtensionsTests
     #region BeginScope With Generic Parameters
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithOneProperty_CreatesScope(
         string name,
         string value)
@@ -26,7 +25,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithOneProperty_NullValue_CreatesScope(string name)
     {
         // Arrange
@@ -40,7 +39,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithTwoProperties_CreatesScope(
         string name0,
         string value0,
@@ -58,7 +57,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithThreeProperties_CreatesScope(
         string name0,
         string value0,
@@ -78,7 +77,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithFourProperties_CreatesScope(
         string name0,
         string value0,
@@ -100,7 +99,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithFiveProperties_CreatesScope(
         string name0,
         string value0,
@@ -124,7 +123,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithSixProperties_CreatesScope(
         string name0,
         string value0,
@@ -154,7 +153,7 @@ public class ScopeExtensionsTests
     #region BeginScope Integration Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithOneProperty_AllowsLogging(
         string name,
         string value,
@@ -178,7 +177,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithTwoProperties_AllowsLogging(
         string name0,
         string value0,
@@ -204,7 +203,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_NestedScopes_AllowsLogging(
         string outerName,
         string outerValue,
@@ -271,7 +270,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginCallerScope_WithProperty_CreatesScope(string name, string value)
     {
         // Arrange
@@ -285,7 +284,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginCallerScope_WithProperty_AllowsLogging(
         string name,
         string value,
@@ -313,7 +312,7 @@ public class ScopeExtensionsTests
     #region BeginRequestScope Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginRequestScope_WithRequestId_CreatesScope(string requestId)
     {
         // Arrange
@@ -327,7 +326,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginRequestScope_WithRequestIdOnly_AllowsLogging(
         string requestId,
         string message)
@@ -350,7 +349,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginRequestScope_WithRequestIdAndUserId_AllowsLogging(
         string requestId,
         string userId,
@@ -374,7 +373,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginRequestScope_WithNullUserId_AllowsLogging(
         string requestId,
         string message)
@@ -401,7 +400,7 @@ public class ScopeExtensionsTests
     #region BeginOperationScope Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginOperationScope_WithOperationName_CreatesScope(string operationName)
     {
         // Arrange
@@ -415,7 +414,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginOperationScope_WithOperationNameOnly_AllowsLogging(
         string operationName,
         string message)
@@ -438,7 +437,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginOperationScope_WithProvidedOperationId_AllowsLogging(
         string operationName,
         string operationId,
@@ -466,7 +465,7 @@ public class ScopeExtensionsTests
     #region BeginCorrelationScope Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginCorrelationScope_WithCorrelationId_CreatesScope(string correlationId)
     {
         // Arrange
@@ -480,7 +479,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginCorrelationScope_WithCorrelationIdOnly_AllowsLogging(
         string correlationId,
         string message)
@@ -503,7 +502,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginCorrelationScope_WithCorrelationIdAndParentId_AllowsLogging(
         string correlationId,
         string parentId,
@@ -527,7 +526,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginCorrelationScope_WithNullParentId_AllowsLogging(
         string correlationId,
         string message)
@@ -554,7 +553,7 @@ public class ScopeExtensionsTests
     #region Edge Cases
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WithComplexObjectValue_AllowsLogging(
         string name,
         string message)
@@ -591,7 +590,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_EmptyPropertyName_CreatesScope(string value)
     {
         // Arrange
@@ -605,7 +604,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScope_WhitespacePropertyName_CreatesScope(string value)
     {
         // Arrange
@@ -623,7 +622,7 @@ public class ScopeExtensionsTests
     #region BeginScopeWith
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScopeWith_WithAnonymousObject_CreatesScope(
         string userId,
         string sessionId,
@@ -654,7 +653,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScopeWith_WithStringObject_CreatesScope(string message)
     {
         // Arrange
@@ -668,7 +667,7 @@ public class ScopeExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void BeginScopeWith_WithComplexObject_CreatesScope(string name, int age, bool isActive)
     {
         // Arrange

@@ -1,6 +1,5 @@
-using AutoFixture.Xunit3;
+using Compono.XunitV3;
 using LayeredCraft.StructuredLogging.Testing;
-using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace LayeredCraft.StructuredLogging.Tests;
@@ -10,7 +9,7 @@ public class EnrichmentExtensionsTests
     #region LogWithContext Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WithStringValue_LogsMessageWithContext(
         string message,
         string contextName,
@@ -32,14 +31,15 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WithException_LogsMessageWithContextAndException(
         string message,
         string contextName,
         int contextValue,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -55,7 +55,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WithNullMessage_LogsWithContext(
         string contextName,
         bool contextValue)
@@ -74,7 +74,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WithComplexObject_LogsWithContext(
         string message,
         string contextName)
@@ -95,7 +95,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WhenLoggerDisabled_DoesNotLog(
         string message,
         string contextName,
@@ -115,7 +115,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WithNullContextValue_LogsWithContext(
         string message,
         string contextName)
@@ -139,7 +139,7 @@ public class EnrichmentExtensionsTests
     #region LogWithUserId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithUserId_LogsMessageWithUserIdContext(
         string userId,
         string message)
@@ -160,13 +160,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithUserId_WithException_LogsMessageWithUserIdContextAndException(
         string userId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -182,7 +183,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithUserId_WithCustomLogLevel_UsesSpecifiedLevel(
         string userId,
         string message)
@@ -203,7 +204,7 @@ public class EnrichmentExtensionsTests
     #region LogWithRequestId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithRequestId_LogsMessageWithRequestIdContext(
         string requestId,
         string message)
@@ -224,13 +225,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithRequestId_WithException_LogsMessageWithRequestIdContextAndException(
         string requestId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -250,7 +252,7 @@ public class EnrichmentExtensionsTests
     #region LogWithCorrelationId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithCorrelationId_LogsMessageWithCorrelationIdContext(
         string correlationId,
         string message)
@@ -271,13 +273,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithCorrelationId_WithException_LogsMessageWithCorrelationIdContextAndException(
         string correlationId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -297,7 +300,7 @@ public class EnrichmentExtensionsTests
     #region LogWithCaller Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithCaller_LogsMessageWithCallerInformation(string message)
     {
         // Arrange
@@ -316,12 +319,13 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithCaller_WithException_LogsMessageWithCallerInformationAndException(
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -357,7 +361,7 @@ public class EnrichmentExtensionsTests
     #region InformationWithUserId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void InformationWithUserId_LogsInformationLevelMessageWithUserId(
         string userId,
         string message)
@@ -378,7 +382,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void InformationWithUserId_WithNullMessage_LogsInformationLevel(string userId)
     {
         // Arrange
@@ -399,7 +403,7 @@ public class EnrichmentExtensionsTests
     #region InformationWithRequestId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void InformationWithRequestId_LogsInformationLevelMessageWithRequestId(
         string requestId,
         string message)
@@ -424,7 +428,7 @@ public class EnrichmentExtensionsTests
     #region InformationWithCorrelationId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void InformationWithCorrelationId_LogsInformationLevelMessageWithCorrelationId(
         string correlationId,
         string message)
@@ -449,7 +453,7 @@ public class EnrichmentExtensionsTests
     #region InformationWithCaller Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void InformationWithCaller_LogsInformationLevelMessageWithCallerInfo(string message)
     {
         // Arrange
@@ -472,7 +476,7 @@ public class EnrichmentExtensionsTests
     #region WarningWithUserId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithUserId_LogsWarningLevelMessageWithUserId(
         string userId,
         string message)
@@ -493,13 +497,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithUserId_WithException_LogsWarningLevelMessageWithUserIdAndException(
         string userId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -519,7 +524,7 @@ public class EnrichmentExtensionsTests
     #region WarningWithRequestId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithRequestId_LogsWarningLevelMessageWithRequestId(
         string requestId,
         string message)
@@ -540,13 +545,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithRequestId_WithException_LogsWarningLevelMessageWithRequestIdAndException(
         string requestId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -566,7 +572,7 @@ public class EnrichmentExtensionsTests
     #region WarningWithCorrelationId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithCorrelationId_LogsWarningLevelMessageWithCorrelationId(
         string correlationId,
         string message)
@@ -587,13 +593,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithCorrelationId_WithException_LogsWarningLevelMessageWithCorrelationIdAndException(
         string correlationId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -613,7 +620,7 @@ public class EnrichmentExtensionsTests
     #region WarningWithCaller Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithCaller_LogsWarningLevelMessageWithCallerInfo(string message)
     {
         // Arrange
@@ -632,12 +639,13 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void WarningWithCaller_WithException_LogsWarningLevelMessageWithCallerInfoAndException(
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -657,7 +665,7 @@ public class EnrichmentExtensionsTests
     #region ErrorWithUserId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithUserId_LogsErrorLevelMessageWithUserId(
         string userId,
         string message)
@@ -678,13 +686,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithUserId_WithException_LogsErrorLevelMessageWithUserIdAndException(
         string userId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -704,7 +713,7 @@ public class EnrichmentExtensionsTests
     #region ErrorWithRequestId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithRequestId_LogsErrorLevelMessageWithRequestId(
         string requestId,
         string message)
@@ -725,13 +734,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithRequestId_WithException_LogsErrorLevelMessageWithRequestIdAndException(
         string requestId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -751,7 +761,7 @@ public class EnrichmentExtensionsTests
     #region ErrorWithCorrelationId Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithCorrelationId_LogsErrorLevelMessageWithCorrelationId(
         string correlationId,
         string message)
@@ -772,13 +782,14 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithCorrelationId_WithException_LogsErrorLevelMessageWithCorrelationIdAndException(
         string correlationId,
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -798,7 +809,7 @@ public class EnrichmentExtensionsTests
     #region ErrorWithCaller Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithCaller_LogsErrorLevelMessageWithCallerInfo(string message)
     {
         // Arrange
@@ -817,12 +828,13 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void ErrorWithCaller_WithException_LogsErrorLevelMessageWithCallerInfoAndException(
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -842,7 +854,7 @@ public class EnrichmentExtensionsTests
     #region Edge Cases
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WithEmptyContextName_LogsCorrectly(
         string message,
         string contextValue)
@@ -861,7 +873,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void LogWithContext_WithWhitespaceContextName_LogsCorrectly(
         string message,
         string contextValue)
@@ -948,7 +960,7 @@ public class EnrichmentExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void EnrichmentMethods_MultipleCallsInSequence_LogCorrectly(
         string userId,
         string requestId,
