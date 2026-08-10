@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "compono": {
+      "source": "layeredcraft/compono",
+      "sourceType": "github",
+      "skillPath": "skills/compono/SKILL.md",
+      "computedHash": "dd76d9bead3522c7ed92f22d9494e47b3280ea4600b159934f5b5285c982271b"
+    }
+  }
+}
