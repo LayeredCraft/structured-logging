@@ -23,7 +23,7 @@ dotnet run --project test/LayeredCraft.StructuredLogging.Tests/  # Run test proj
 
 ### Core Structure
 - **src/LayeredCraft.StructuredLogging/** - Main library containing all logging extensions
-- **test/LayeredCraft.StructuredLogging.Tests/** - Comprehensive test suite with xUnit3, AutoFixture, and NSubstitute
+- **test/LayeredCraft.StructuredLogging.Tests/** - Comprehensive test suite with xUnit3 and Compono
 
 ### Key Components
 - **LoggerExtensionsBase.cs** - Internal base class providing optimized logging methods with level checks
@@ -40,7 +40,7 @@ dotnet run --project test/LayeredCraft.StructuredLogging.Tests/  # Run test proj
 
 ### Dependencies
 - **Microsoft.Extensions.Logging.Abstractions** - Core logging abstraction
-- **Test Dependencies**: xUnit3, AutoFixture, NSubstitute, AwesomeAssertions
+- **Test Dependencies**: xUnit3, Compono, Compono.XunitV3, AwesomeAssertions
 
 ## Development Guidelines
 
@@ -51,8 +51,7 @@ dotnet run --project test/LayeredCraft.StructuredLogging.Tests/  # Run test proj
 - Comprehensive XML documentation is required for all public APIs
 
 ### Testing Strategy
-- Test project uses xUnit3 with AutoFixture for test data generation
-- NSubstitute for mocking ILogger instances
+- Test project uses xUnit3 with Compono for test data composition (`[Compose]` theories via `Compono.XunitV3`)
 - AwesomeAssertions for fluent test assertions
 - TestLogger framework provides specialized logging test utilities
 - Tests are organized by feature area matching the main library structure

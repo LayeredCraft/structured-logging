@@ -1,6 +1,5 @@
-using AutoFixture.Xunit3;
+using Compono.XunitV3;
 using LayeredCraft.StructuredLogging.Testing;
-using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace LayeredCraft.StructuredLogging.Tests;
@@ -10,7 +9,7 @@ public class PerformanceExtensionsTests
     #region TimeOperation Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void TimeOperation_CreatesDisposableTimer(string operationName)
     {
         // Arrange
@@ -25,7 +24,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void TimeOperation_WhenDisposed_LogsCompletion(string operationName)
     {
         // Arrange
@@ -48,7 +47,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void TimeOperation_WithCustomLogLevel_UsesSpecifiedLevel(string operationName)
     {
         // Arrange
@@ -66,7 +65,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void TimeOperation_MultipleDispose_DoesNotThrow(string operationName)
     {
         // Arrange
@@ -83,7 +82,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void TimeOperation_WithLoggerDisabled_DoesNotLog(string operationName)
     {
         // Arrange
@@ -107,7 +106,7 @@ public class PerformanceExtensionsTests
     #region TimeAsync<TResult> Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithTaskResult_TimesOperationAndReturnsResult(string operationName, int expectedResult)
     {
         // Arrange
@@ -127,7 +126,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithTaskResultAndCustomLogLevel_UsesSpecifiedLevel(string operationName, string expectedResult)
     {
         // Arrange
@@ -144,7 +143,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithTaskResultException_LogsErrorAndRethrows(string operationName)
     {
         // Arrange
@@ -165,7 +164,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithDelayedTaskResult_MeasuresActualTime(string operationName, bool expectedResult)
     {
         // Arrange
@@ -192,7 +191,7 @@ public class PerformanceExtensionsTests
     #region TimeAsync (void) Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithTask_TimesOperation(string operationName)
     {
         // Arrange
@@ -215,7 +214,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithTaskAndCustomLogLevel_UsesSpecifiedLevel(string operationName)
     {
         // Arrange
@@ -230,7 +229,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithTaskException_LogsErrorAndRethrows(string operationName)
     {
         // Arrange
@@ -253,7 +252,7 @@ public class PerformanceExtensionsTests
     #region Time<TResult> Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Time_WithFuncResult_TimesOperationAndReturnsResult(string operationName, decimal expectedResult)
     {
         // Arrange
@@ -278,7 +277,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Time_WithFuncResultAndCustomLogLevel_UsesSpecifiedLevel(string operationName, long expectedResult)
     {
         // Arrange
@@ -294,7 +293,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Time_WithFuncException_LogsErrorAndRethrows(string operationName)
     {
         // Arrange
@@ -317,7 +316,7 @@ public class PerformanceExtensionsTests
     #region Time (void) Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Time_WithAction_TimesOperation(string operationName)
     {
         // Arrange
@@ -336,7 +335,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Time_WithActionAndCustomLogLevel_UsesSpecifiedLevel(string operationName)
     {
         // Arrange
@@ -353,7 +352,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Time_WithActionException_LogsErrorAndRethrows(string operationName)
     {
         // Arrange
@@ -480,7 +479,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public async Task TimeAsync_WithCancelledTask_PropagatesCancellation(string operationName)
     {
         // Arrange
@@ -497,7 +496,7 @@ public class PerformanceExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Time_WithComplexObjectResult_ReturnsCorrectly(string operationName)
     {
         // Arrange

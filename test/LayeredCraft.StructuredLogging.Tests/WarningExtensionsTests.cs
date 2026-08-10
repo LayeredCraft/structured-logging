@@ -1,6 +1,5 @@
-using AutoFixture.Xunit3;
+using Compono.XunitV3;
 using LayeredCraft.StructuredLogging.Testing;
-using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace LayeredCraft.StructuredLogging.Tests;
@@ -10,7 +9,7 @@ public class WarningExtensionsTests
     #region Warning Methods Without Exception
     
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithMessage_LogsAtWarningLevel(string message)
     {
         // Arrange
@@ -39,7 +38,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithOneProperty_LogsAtWarningLevel(
         string message,
         string propertyValue)
@@ -56,7 +55,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithOneProperty_NullValue_LogsAtWarningLevel(string message)
     {
         // Arrange
@@ -71,7 +70,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithTwoProperties_LogsAtWarningLevel(
         string message,
         string prop0,
@@ -89,7 +88,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithThreeProperties_LogsAtWarningLevel(
         string message,
         string prop0,
@@ -108,7 +107,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithFourProperties_LogsAtWarningLevel(
         string message,
         string prop0,
@@ -128,7 +127,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithFiveProperties_LogsAtWarningLevel(
         string message,
         string prop0,
@@ -149,7 +148,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithSixProperties_LogsAtWarningLevel(
         string message,
         string prop0, 
@@ -175,12 +174,13 @@ public class WarningExtensionsTests
     #region Warning Methods With Exception
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithMessageAndException_LogsAtWarningLevelWithException(
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -196,10 +196,11 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
-    public void Warning_WithNullMessageAndException_LogsAtWarningLevel(Exception exception)
+    [Compose]
+    public void Warning_WithNullMessageAndException_LogsAtWarningLevel(string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -214,13 +215,14 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithExceptionAndOneProperty_LogsAtWarningLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string propertyValue)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -235,14 +237,15 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithExceptionAndTwoProperties_LogsAtWarningLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -257,15 +260,16 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithExceptionAndThreeProperties_LogsAtWarningLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
         bool prop2)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -280,9 +284,9 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithExceptionAndFourProperties_LogsAtWarningLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -290,6 +294,7 @@ public class WarningExtensionsTests
         double prop3)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -304,9 +309,9 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithExceptionAndFiveProperties_LogsAtWarningLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -315,6 +320,7 @@ public class WarningExtensionsTests
         long prop4)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -329,9 +335,9 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithExceptionAndSixProperties_LogsAtWarningLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -341,6 +347,7 @@ public class WarningExtensionsTests
         decimal prop5)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -429,7 +436,7 @@ public class WarningExtensionsTests
     #region Edge Cases
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithComplexObjectProperty_LogsCorrectly(string message)
     {
         // Arrange
@@ -445,7 +452,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithMixedNullAndValueProperties_LogsCorrectly(string message)
     {
         // Arrange
@@ -477,7 +484,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithEmptyString_LogsCorrectly(string propertyValue)
     {
         // Arrange
@@ -492,7 +499,7 @@ public class WarningExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Warning_WithWhitespace_LogsCorrectly(string propertyValue)
     {
         // Arrange

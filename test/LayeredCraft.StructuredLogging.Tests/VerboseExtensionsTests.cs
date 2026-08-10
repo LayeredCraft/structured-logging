@@ -1,6 +1,5 @@
-using AutoFixture.Xunit3;
+using Compono.XunitV3;
 using LayeredCraft.StructuredLogging.Testing;
-using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace LayeredCraft.StructuredLogging.Tests;
@@ -10,7 +9,7 @@ public class VerboseExtensionsTests
     #region Verbose Methods Without Exception
     
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithMessage_LogsAtTraceLevel(string message)
     {
         // Arrange
@@ -39,7 +38,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithOneProperty_LogsAtTraceLevel(
         string message,
         string propertyValue)
@@ -56,7 +55,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithOneProperty_NullValue_LogsAtTraceLevel(string message)
     {
         // Arrange
@@ -71,7 +70,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithTwoProperties_LogsAtTraceLevel(
         string message,
         string prop0,
@@ -89,7 +88,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithThreeProperties_LogsAtTraceLevel(
         string message,
         string prop0,
@@ -108,7 +107,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithFourProperties_LogsAtTraceLevel(
         string message,
         string prop0,
@@ -128,7 +127,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithFiveProperties_LogsAtTraceLevel(
         string message,
         string prop0,
@@ -149,7 +148,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithSixProperties_LogsAtTraceLevel(
         string message,
         string prop0, 
@@ -175,12 +174,13 @@ public class VerboseExtensionsTests
     #region Verbose Methods With Exception
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithMessageAndException_LogsAtTraceLevelWithException(
         string message,
-        Exception exception)
+        string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -196,10 +196,11 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
-    public void Verbose_WithNullMessageAndException_LogsAtTraceLevel(Exception exception)
+    [Compose]
+    public void Verbose_WithNullMessageAndException_LogsAtTraceLevel(string exceptionMessage)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -214,13 +215,14 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithExceptionAndOneProperty_LogsAtTraceLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string propertyValue)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -235,14 +237,15 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithExceptionAndTwoProperties_LogsAtTraceLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -257,15 +260,16 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithExceptionAndThreeProperties_LogsAtTraceLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
         bool prop2)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -280,9 +284,9 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithExceptionAndFourProperties_LogsAtTraceLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -290,6 +294,7 @@ public class VerboseExtensionsTests
         double prop3)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -304,9 +309,9 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithExceptionAndFiveProperties_LogsAtTraceLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -315,6 +320,7 @@ public class VerboseExtensionsTests
         long prop4)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -329,9 +335,9 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithExceptionAndSixProperties_LogsAtTraceLevel(
-        Exception exception,
+        string exceptionMessage,
         string message,
         string prop0,
         int prop1,
@@ -341,6 +347,7 @@ public class VerboseExtensionsTests
         decimal prop5)
     {
         // Arrange
+        var exception = new Exception(exceptionMessage);
         var testLogger = new TestLogger();
 
         // Act
@@ -429,7 +436,7 @@ public class VerboseExtensionsTests
     #region Edge Cases
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithComplexObjectProperty_LogsCorrectly(string message)
     {
         // Arrange
@@ -445,7 +452,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithMixedNullAndValueProperties_LogsCorrectly(string message)
     {
         // Arrange
@@ -477,7 +484,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithEmptyString_LogsCorrectly(string propertyValue)
     {
         // Arrange
@@ -492,7 +499,7 @@ public class VerboseExtensionsTests
     }
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void Verbose_WithWhitespace_LogsCorrectly(string propertyValue)
     {
         // Arrange

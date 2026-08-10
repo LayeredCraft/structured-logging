@@ -1,7 +1,6 @@
-using AutoFixture.Xunit3;
+using Compono.XunitV3;
 using AwesomeAssertions;
 using LayeredCraft.StructuredLogging.Testing;
-using LayeredCraft.StructuredLogging.Tests.TestKit.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace LayeredCraft.StructuredLogging.Tests.Testing;
@@ -821,7 +820,7 @@ public class TestingExtensionsTests
     #region Integration Tests
 
     [Theory]
-    [AutoNSubstituteData]
+    [Compose]
     public void TestLogger_IntegrationTest_WorksWithStructuredLoggingExtensions(
         string userId,
         string requestId,
