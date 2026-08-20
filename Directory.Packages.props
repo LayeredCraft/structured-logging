@@ -22,7 +22,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="[11.0.0-preview.5.26302.115, 12.0.0-a)" />
   </ItemGroup>
   <ItemGroup Label="GitHub">
-    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.301" PrivateAssets="All" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.400" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Label="Testing">
     <PackageVersion Include="AwesomeAssertions" Version="9.5.0" />
