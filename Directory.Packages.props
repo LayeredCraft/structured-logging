@@ -25,9 +25,9 @@
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="10.0.400" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup Label="Testing">
-    <PackageVersion Include="AwesomeAssertions" Version="9.5.0" />
-    <PackageVersion Include="Compono" Version="0.4.0" />
-    <PackageVersion Include="Compono.XunitV3" Version="0.4.0" />
+    <PackageVersion Include="AwesomeAssertions" Version="9.6.0" />
+    <PackageVersion Include="Compono" Version="0.8.0" />
+    <PackageVersion Include="Compono.XunitV3" Version="0.8.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
